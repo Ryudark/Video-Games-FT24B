@@ -16,13 +16,23 @@ const router = Router();
 
 const datos = async ()=>{
     const arreglo = await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
+    arreglo.push(await Videogames.findOne({
+        where:{
+            id:id
+        }}))
     return arreglo.data.results
 }
+
 const juegos = async (game)=>{
-    const arreglo= await axios.get(`https://api.rawg.io/api/games?search=${game}?&key=${KEY}`)
+    // const arreglo= await axios.get(`https://api.rawg.io/api/games?search=${game}?&key=${KEY}`)
+    const arreglo= await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
     // console.log(typeof arreglo)
+    console.log(arreglo.data.results)
     if(arreglo){
-        if(arreglo.data.results.length>0) return arreglo.data.results
+        if(arreglo.data.results.length>0){
+            const total = arreglo.data.results.filter(item=>item.name===game)
+            return total
+        } 
     }
     else throw 'No existe juego'
 }
@@ -32,7 +42,16 @@ const detail = async (id)=>{
         const detalle = await axios.get(`https://api.rawg.io/api/games/${id}?&key=${KEY}`)
         return detalle.data
     }
-    const juego = await Videogames.findByPk(id)
+    const juego = await Videogames.findOne({
+        where:{
+            id:id
+        },
+        include:[
+        {
+            model:Generos,
+            attributes:["name"]
+        }]
+    })
     return juego
 }
 
@@ -52,14 +71,13 @@ const generos = async()=>{
         // return genre
         return Generos.findAll()
     }
-    return Generos.findAll()
+    return tomarGeneros
 }
 
 
 router.get('/videogames', async (req, res)=>{
     try{
         const {name}= req.query
-        console.log(name)
         if(name){
             const datosJuegos= await juegos(name)
             res.json(datosJuegos)
@@ -88,9 +106,6 @@ router.get('/videogames/:id', async(req, res)=>{
 
 router.get('/genres', async(req, res)=>{
     try{
-        // const carga = await generos()
-        // const generos = await Generos.findAll()
-        // res.json(generos)
         const generoJuego= await generos()
         res.json(generoJuego)
     }
@@ -101,15 +116,22 @@ router.get('/genres', async(req, res)=>{
 
 router.post('/videogames', async(req, res)=>{
     try{
-        const {name, descripcion, fechaLanzamiento, rating, plataformas, image} = req.body
+        const {name, descripcion, fechaLanzamiento, rating, plataformas, image, genero} = req.body
+        console.log(genero)
+        const generoGuardar= await Generos.findAll({where:{
+            name:genero
+        }})
+
+        console.log(generoGuardar)
         const nuevoVideojuego= await Videogames.create({
             name, 
             descripcion,
             fechaLanzamiento,
             rating,
             plataformas,
-            image
+            image,
         })
+        nuevoVideojuego.addGenero(generoGuardar)
         console.log(nuevoVideojuego)
         res.json(nuevoVideojuego)
     } 
@@ -117,18 +139,5 @@ router.post('/videogames', async(req, res)=>{
         res.json(e)
     }
 })
-
-router.post('/videogames/:idJuego/genero/:idGenero', async (req, res)=>{
-    try{
-        const {idJuego, idGenero} = req.params
-        const juego = await Videogames.findByPk(idJuego)
-        await juego.addGenero(idGenero)
-        res.send(200)
-    }
-    catch(e){
-        res.json(e)
-    }
-})
-
 
 module.exports = router;
