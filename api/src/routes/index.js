@@ -39,13 +39,20 @@ const detail = async (id)=>{
 const generos = async()=>{
     const generos = await axios.get(`https://api.rawg.io/api/genres?&key=${KEY}`)
     let genre =[]
-    for (let i = 0; i < generos.data.results.length; i++) {
-        genre.push(generos.data.results[i].name);
-        await Generos.create({
-            name: generos.data.results[i].name
-        })
+    console.log( await Generos.findAll().length)
+    const tomarGeneros = await Generos.findAll()
+    console.log(tomarGeneros.length)
+    if(tomarGeneros.length<1){
+        for (let i = 0; i < generos.data.results.length; i++) {
+            genre.push(generos.data.results[i].name);
+            await Generos.create({
+                name: generos.data.results[i].name
+            })
+        }
+        // return genre
+        return Generos.findAll()
     }
-    return genre
+    return Generos.findAll()
 }
 
 
@@ -81,6 +88,9 @@ router.get('/videogames/:id', async(req, res)=>{
 
 router.get('/genres', async(req, res)=>{
     try{
+        // const carga = await generos()
+        // const generos = await Generos.findAll()
+        // res.json(generos)
         const generoJuego= await generos()
         res.json(generoJuego)
     }
