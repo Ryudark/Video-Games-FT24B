@@ -16,18 +16,36 @@ const router = Router();
 
 const datos = async ()=>{
     const arreglo = await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
+    
+    const simple = arreglo.data.results.map(function(datos) {const info={
+        id: datos.id,
+        name: datos.name,
+        released: datos.released,
+        rating: datos.rating,
+        genres: datos.genres,
+        platforms: datos.platforms,
+        reviews: datos.reviews_text_count,
+        image: datos.background_image
+    } 
+    return info
+    }
+    )
+    const juegosDB = await Videogames.findAll()
+    const concatenar = juegosDB.concat(simple)
+    // return arreglo
+    return concatenar
+    // arreglo.push()
+}           ///id, name, released, rating, genres, platforms, reviews_text_count, background_image, 
+
+const juegos = async (game)=>{
+    const arreglo= await axios.get(`https://api.rawg.io/api/games?search=${game}?&key=${KEY}`)
+    // const arreglo= await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
+    // console.log(typeof arreglo)
+    console.log(arreglo.data.results)
     arreglo.push(await Videogames.findOne({
         where:{
             id:id
         }}))
-    return arreglo.data.results
-}
-
-const juegos = async (game)=>{
-    // const arreglo= await axios.get(`https://api.rawg.io/api/games?search=${game}?&key=${KEY}`)
-    const arreglo= await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
-    // console.log(typeof arreglo)
-    console.log(arreglo.data.results)
     if(arreglo){
         if(arreglo.data.results.length>0){
             const total = arreglo.data.results.filter(item=>item.name===game)
