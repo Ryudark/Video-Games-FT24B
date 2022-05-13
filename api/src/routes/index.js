@@ -135,12 +135,16 @@ router.get('/genres', async(req, res)=>{
 router.post('/videogames', async(req, res)=>{
     try{
         const {name, descripcion, fechaLanzamiento, rating, plataformas, image, genero} = req.body
-        console.log(genero)
+        let buscarDB = await Videogames.findOne({
+            where:{
+                name:name
+            },})
+        if(buscarDB){
+            throw 'Juego en existencia'
+        }
         const generoGuardar= await Generos.findAll({where:{
             name:genero
         }})
-
-        console.log(generoGuardar)
         const nuevoVideojuego= await Videogames.create({
             name, 
             descripcion,
@@ -150,7 +154,6 @@ router.post('/videogames', async(req, res)=>{
             image,
         })
         nuevoVideojuego.addGenero(generoGuardar)
-        console.log(nuevoVideojuego)
         res.json(nuevoVideojuego)
     } 
     catch(e){
