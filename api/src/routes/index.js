@@ -66,7 +66,18 @@ const juegos = async (game)=>{
 const detail = async (id)=>{
     if(id.length<5){
         const detalle = await axios.get(`https://api.rawg.io/api/games/${id}?&key=${KEY}`)
-        return detalle.data
+        const infoSimpleApi = {
+                id: detalle.data.id,
+                name: detalle.data.name,
+                descripcion: detalle.data.description,
+                rating: detalle.data.rating,
+                genres: detalle.data.genres,
+                platforms: detalle.data.platforms,
+                image: detalle.data.background_image,
+                fechaLanzamiento: detalle.data.released
+                } 
+        console.log(infoSimpleApi)
+        return infoSimpleApi
     }
     const juego = await Videogames.findOne({
         where:{

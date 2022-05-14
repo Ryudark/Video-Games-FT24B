@@ -30,3 +30,15 @@ export function getAllGames(){
         })
     }
 }
+
+export function getDetailGame(id){
+    return function(dispatch){
+        axios.get(`http://localhost:3001/videogames/${id}`)
+        .then(game=>{
+            dispatch({
+                type: GET_DETAIL_GAME,
+                payload: game
+            })
+        })
+    }
+}

@@ -1,4 +1,4 @@
-import { GET_GAME } from "../actions/actions.mjs";
+import { GET_DETAIL_GAME, GET_GAME } from "../actions/actions.mjs";
 
 const initialState = {
     games: [],
@@ -13,6 +13,11 @@ export default function reducer(state = initialState, action){
             ...state,
             games: action.payload.data
         }
+        case GET_DETAIL_GAME:
+            return{
+                ...state,
+                gameDetail: action.payload.data
+            }
         default:
             return state
     }
