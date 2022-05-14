@@ -1,14 +1,21 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
+import { useParams } from "react-router-dom"
 import { getDetailGame } from "../../redux/actions/actions.mjs"
 
 export default function GameDetail(){
     let game = useSelector(state=> state.gameDetail)
+    let params = useParams()
     let dispatch = useDispatch()
+    const id = params.id ? params.id : game.id;
+
+
+    console.log(params.id)
+    console.log(id)
 
     useEffect(()=>{
-        dispatch(getDetailGame('32'))
+        dispatch(getDetailGame(id))
     },[])
 
     console.log(game)

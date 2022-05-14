@@ -54,7 +54,6 @@ const juegos = async (game)=>{
     let allGames = [...juegosDB, ...infoSimpleApi]
     if(allGames){
             const total = await allGames.filter(item=>item.name.includes(game))
-            console.log(total)
             if(total.length>0){
                 return total
             }
@@ -76,7 +75,6 @@ const detail = async (id)=>{
                 image: detalle.data.background_image,
                 fechaLanzamiento: detalle.data.released
                 } 
-        console.log(infoSimpleApi)
         return infoSimpleApi
     }
     const juego = await Videogames.findOne({
