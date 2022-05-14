@@ -33,23 +33,12 @@ const datos = async ()=>{
     let juegosDB = await Videogames.findAll()
     // const concatenar = juegosDB.concat(simple)
     let allGames = [...juegosDB, ...infoSimpleApi]
-    // return arreglo
     return allGames
-    // arreglo.push()
 }           ///id, name, released, rating, genres, platforms, reviews_text_count, background_image, 
 
 const juegos = async (game)=>{
-    let arreglo = await axios.get(`https://api.rawg.io/api/games?search=${game}?&key=${KEY}`)
-    // const arreglo= await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
-    // console.log(typeof arreglo)
-    // let arreglo = await Videogames.findAll({
-    //     where:{
-    //         name:{
-    //             [Op.iLike]: "%"+game+"%"
-    //         }
-    //     }})
-    // console.log('llega')
-    const infoSimpleApi = arreglo.data.results.map(function(datos) {const info={
+    let busquedaApi = await axios.get(`https://api.rawg.io/api/games?search=${game}?&key=${KEY}`)
+    const infoSimpleApi = busquedaApi.data.results.map(function(datos) {const info={
         id: datos.id,
         name: datos.name,
         released: datos.released,
@@ -62,7 +51,6 @@ const juegos = async (game)=>{
         return info
         })
     let juegosDB = await Videogames.findAll()
-    // const concatenar = juegosDB.concat(simple)
     let allGames = [...juegosDB, ...infoSimpleApi]
     if(allGames){
             const total = await allGames.filter(item=>item.name.includes(game))
@@ -95,20 +83,18 @@ const detail = async (id)=>{
 
 const generos = async()=>{
     const generos = await axios.get(`https://api.rawg.io/api/genres?&key=${KEY}`)
-    let genre =[]
-    console.log( await Generos.findAll().length)
+    // let genre =[]
     const tomarGeneros = await Generos.findAll()
-    console.log(tomarGeneros.length)
     if(tomarGeneros.length<1){
         for (let i = 0; i < generos.data.results.length; i++) {
-            genre.push(generos.data.results[i].name);
+            // genre.push(generos.data.results[i].name);
             await Generos.create({
                 name: generos.data.results[i].name
             })
         }
-        // return genre
-        return Generos.findAll()
+        // return Generos.findAll()
     }
+    // return genre
     return tomarGeneros
 }
 
