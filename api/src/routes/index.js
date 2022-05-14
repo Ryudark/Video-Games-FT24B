@@ -17,7 +17,7 @@ const router = Router();
 const datos = async ()=>{
     const arreglo = await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
     
-    const simple = arreglo.data.results.map(function(datos) {const info={
+    const infoSimpleApi = arreglo.data.results.map(function(datos) {const info={
         id: datos.id,
         name: datos.name,
         released: datos.released,
@@ -30,29 +30,49 @@ const datos = async ()=>{
     return info
     }
     )
-    const juegosDB = await Videogames.findAll()
-    const concatenar = juegosDB.concat(simple)
+    let juegosDB = await Videogames.findAll()
+    // const concatenar = juegosDB.concat(simple)
+    let allGames = [...juegosDB, ...infoSimpleApi]
     // return arreglo
-    return concatenar
+    return allGames
     // arreglo.push()
 }           ///id, name, released, rating, genres, platforms, reviews_text_count, background_image, 
 
 const juegos = async (game)=>{
-    const arreglo= await axios.get(`https://api.rawg.io/api/games?search=${game}?&key=${KEY}`)
+    let arreglo = await axios.get(`https://api.rawg.io/api/games?search=${game}?&key=${KEY}`)
     // const arreglo= await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
     // console.log(typeof arreglo)
-    console.log(arreglo.data.results)
-    arreglo.push(await Videogames.findOne({
-        where:{
-            id:id
-        }}))
-    if(arreglo){
-        if(arreglo.data.results.length>0){
-            const total = arreglo.data.results.filter(item=>item.name===game)
-            return total
-        } 
+    // let arreglo = await Videogames.findAll({
+    //     where:{
+    //         name:{
+    //             [Op.iLike]: "%"+game+"%"
+    //         }
+    //     }})
+    // console.log('llega')
+    const infoSimpleApi = arreglo.data.results.map(function(datos) {const info={
+        id: datos.id,
+        name: datos.name,
+        released: datos.released,
+        rating: datos.rating,
+        genres: datos.genres,
+        platforms: datos.platforms,
+        reviews: datos.reviews_text_count,
+        image: datos.background_image
+        }    
+        return info
+        })
+    let juegosDB = await Videogames.findAll()
+    // const concatenar = juegosDB.concat(simple)
+    let allGames = [...juegosDB, ...infoSimpleApi]
+    if(allGames){
+            const total = await allGames.filter(item=>item.name.includes(game))
+            console.log(total)
+            if(total.length>0){
+                return total
+            }
+            else throw 'No existe juego'
+        // return arreglo.data.results
     }
-    else throw 'No existe juego'
 }
 
 const detail = async (id)=>{
