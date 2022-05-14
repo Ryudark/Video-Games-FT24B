@@ -13,10 +13,11 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.0",
     "redux": "^4.2.0",
+    "redux-thunk": "^2.4.1",
     "thunk": "^0.0.1",
     "web-vitals": "^0.2.4"
   },
-  "type":"module",
+  "type": "module",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
