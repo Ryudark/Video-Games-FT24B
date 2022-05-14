@@ -92,9 +92,9 @@ const generos = async()=>{
                 name: generos.data.results[i].name
             })
         }
-        // return Generos.findAll()
+        return Generos.findAll()
+        // return genre
     }
-    // return genre
     return tomarGeneros
 }
 
