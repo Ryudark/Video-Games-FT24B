@@ -12,10 +12,10 @@ function App() {
     <div className="App tamano">
       <h1> HENRY VIDEOGAMES </h1>
       <img src= {imagePrincipal} alt = "img-principal" />
-      {/* <Nav /> */}
+      <Nav />
       <Routes>
-        <Route path='/home' element={<Home />}/>
-        <Route path='/games' element={<Games />}/>
+        {/* <Route path='/home' element={<Home />}/> */}
+        <Route path='/' element={<Games />}/>
         <Route path='/videogames/:id' element={<GameDetail/>}/>
       </Routes>
     </div>
