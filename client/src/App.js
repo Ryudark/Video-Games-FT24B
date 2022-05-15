@@ -17,8 +17,8 @@ function App() {
       <img src= {imagePrincipal} alt = "img-principal" />
       <Nav />
       <SearchGame />
-      <Orden />
       {/* <Games /> */}
+      <Orden />
       <Routes>
         {/* <Route path='/home' element={<Home />}/> */}
         <Route path='/' element={<Games />}/>
