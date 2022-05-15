@@ -113,6 +113,7 @@ router.get('/videogames', async (req, res)=>{
         const {name}= req.query
         if(name){
             const datosJuegos= await juegos(name)
+            console.log(datosJuegos)
             res.json(datosJuegos)
         }
         else{

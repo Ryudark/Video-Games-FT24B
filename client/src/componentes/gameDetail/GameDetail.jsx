@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { getDetailGame } from "../../redux/actions/actions.mjs"
+import { getDetailGame } from "../../redux/actions/actions.js"
 
 export default function GameDetail(){
     let game = useSelector(state=> state.gameDetail)

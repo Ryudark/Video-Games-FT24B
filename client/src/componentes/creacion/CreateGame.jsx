@@ -1,26 +1,29 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
-import { getAllGames } from "../../redux/actions/actions.js"
-import TarjetaSimple from "../tarjeta/TarjetaSimple.jsx"
+import { getGeneros } from "../../redux/actions/actions.js"
 
-export default function Games(){
-    let games = useSelector(state=> state.games)
+export default function CreateGame(){
+    let genero = useSelector(state=> state.generos)
     let dispatch = useDispatch()
 
+    console.log(genero)
+
     useEffect(()=>{
-        dispatch(getAllGames())
+        dispatch(getGeneros())
     },[])
 
+    console.log(genero)
     return (
         <div>
-            {
+            fguncoina
+            {/* {
                 games.map(datos=><TarjetaSimple 
                     id={datos.id}
                     image={datos.image}
                     name={datos.name}    
                 />)
-            }
+            } */}
         </div>
     )
 }
