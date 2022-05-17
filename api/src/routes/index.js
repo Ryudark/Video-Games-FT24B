@@ -20,11 +20,7 @@ const datos = async ()=>{
     const infoSimpleApi = arreglo.data.results.map(function(datos) {const info={
         id: datos.id,
         name: datos.name,
-        released: datos.released,
-        rating: datos.rating,
-        genres: datos.genres,
-        platforms: datos.platforms,
-        reviews: datos.reviews_text_count,
+        genres: datos.genres.map(genero=> genero.name),
         image: datos.background_image
     } 
     return info
@@ -33,7 +29,9 @@ const datos = async ()=>{
     let juegosDB = await Videogames.findAll()
     // const concatenar = juegosDB.concat(simple)
     let allGames = [...juegosDB, ...infoSimpleApi]
+    // let allGames = [...infoSimpleApi]
     return allGames
+    // return infoSimpleApi
 }           ///id, name, released, rating, genres, platforms, reviews_text_count, background_image, 
 
 const juegos = async (game)=>{
@@ -41,11 +39,7 @@ const juegos = async (game)=>{
     const infoSimpleApi = busquedaApi.data.results.map(function(datos) {const info={
         id: datos.id,
         name: datos.name,
-        released: datos.released,
-        rating: datos.rating,
         genres: datos.genres,
-        platforms: datos.platforms,
-        reviews: datos.reviews_text_count,
         image: datos.background_image
         }    
         return info
@@ -63,12 +57,12 @@ const juegos = async (game)=>{
 }
 
 const detail = async (id)=>{
-    if(id.length<5){
+    if(id.length<7){
         const detalle = await axios.get(`https://api.rawg.io/api/games/${id}?&key=${KEY}`)
         const infoSimpleApi = {
                 id: detalle.data.id,
                 name: detalle.data.name,
-                descripcion: detalle.data.description,
+                descripcion: detalle.data.description_raw,
                 rating: detalle.data.rating,
                 genres: detalle.data.genres,
                 platforms: detalle.data.platforms,

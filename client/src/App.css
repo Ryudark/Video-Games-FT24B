@@ -12,10 +12,6 @@ img{
   max-height: 100%;
 }
 
-.tamano {
-  height: 700px;
-  width: 200px;
- }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

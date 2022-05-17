@@ -11,6 +11,7 @@ export default function Games(){
     useEffect(()=>{
         dispatch(getAllGames())
     },[])
+    console.log(games)
 
     return (
         <div>
@@ -18,7 +19,8 @@ export default function Games(){
                 games.map(datos=><TarjetaSimple 
                     id={datos.id}
                     image={datos.image}
-                    name={datos.name}    
+                    name={datos.name}   
+                    genero={datos.genres}
                 />)
             }
         </div>

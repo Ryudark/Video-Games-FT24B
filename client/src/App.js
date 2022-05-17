@@ -12,7 +12,7 @@ import Orden from './componentes/orden/Orden';
 
 function App() {
   return (
-    <div className="App tamano">
+    <div className="App">
       <h1> HENRY VIDEOGAMES </h1>
       <img src= {imagePrincipal} alt = "img-principal" />
       <Nav />

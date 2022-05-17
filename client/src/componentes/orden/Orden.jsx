@@ -11,6 +11,7 @@ export default function Orden(){
 
     return(
         <select name="select" onChange={onSelectChange}>
+            <option>---SELECCIONE---</option>
             <option value={ASCENDENTE}>ASCENDENTE</option>
             <option value={DESCENDENTE}>DESCENDENTE</option>
         </select>

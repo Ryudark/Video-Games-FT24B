@@ -8,6 +8,13 @@ import { getGeneros } from "../../redux/actions/actions.js"
 export default function CreateGame(){
     let genero = useSelector(state=> state.generos)
     let dispatch = useDispatch()
+    const generos= []
+    console.log(genero)
+
+    for(let i=0; i<genero.length;i++){
+        generos.push(genero[i].name)
+    }
+    console.log(generos)
 
     const [game, setGame] = useState({})
 
@@ -20,11 +27,11 @@ export default function CreateGame(){
     }
 
     function onSubmit(e){
-        console.log(game)
         e.preventDefault();
-        axios.post('http://localhost:3001/videogames', game)
-        .then(()=>{
-        })
+        console.log(game)
+        // axios.post('http://localhost:3001/videogames', game)
+        // .then(()=>{
+        // })
     }
 
     useEffect(()=>{
@@ -42,12 +49,20 @@ export default function CreateGame(){
             <label>Fecha de Lanzamiento</label>
             <input onChange={onInputChange} name="fechaLanzamiento" type="text" value={game.fechaLanzamiento}/>
             <label>Generos</label>
-            <input onChange={onInputChange} name="genero" type="text" value={game.genero}/>
+            {
+                generos.map((genero, index)=> {
+                    // console.log(genero)
+                    return (<>
+                                <input name="genero" onChange={onInputChange} type="checkbox" value={genero}/>
+                                <label >{genero}</label>
+                                </>)
+                })
+            }
             <label>Rating</label>
             <input onChange={onInputChange} name="rating" type="text" value={game.rating}/>
             <label>Plataformas</label>
             <input onChange={onInputChange} name="plataformas" type="text" value={game.plataformas}/>
-            <input type="submit" />
+            <input type="submit" onClick={()=>alert('Creado con exito')}/>
         </form>
     )
 }
