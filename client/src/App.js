@@ -9,6 +9,7 @@ import Nav from './componentes/nav/Nav';
 import CreateGame from './componentes/creacion/CreateGame';
 import SearchGame from './componentes/busqueda/SearchGame';
 import Orden from './componentes/orden/Orden';
+import Genero from './componentes/genero/Genero';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/' element={<Games />}/>
         <Route path='/videogames/:id' element={<GameDetail/>}/>
         <Route path='/games/create' element={<CreateGame/>}/>
+        <Route path='/genero/:genero' element={<Genero/>}/>
       </Routes>
     </div>
   );

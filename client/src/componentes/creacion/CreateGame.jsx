@@ -7,6 +7,7 @@ import { getGeneros } from "../../redux/actions/actions.js"
 
 export default function CreateGame(){
     let genero = useSelector(state=> state.generos)
+    console.log(genero)
     let dispatch = useDispatch()
     const generos= []
     const plataformas=['Xbox','PC','PlayStation','GameBoy', 'Nintendo Switch', 'Ios', 'Android']

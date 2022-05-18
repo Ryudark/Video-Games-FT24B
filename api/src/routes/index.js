@@ -95,10 +95,11 @@ const generos = async()=>{
                 name: generos.data.results[i].name
             })
         }
+        const generoDB=Generos.findAll()
         return Generos.findAll()
         // return genre
     }
-    return tomarGeneros
+    return generos.data.results
 }
 
 

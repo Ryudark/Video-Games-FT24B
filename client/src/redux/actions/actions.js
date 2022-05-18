@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDEN } from '../../constantes/constantes';
+import { GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_GENERO_DETAIL, GET_SEARCH_GAME, ORDEN } from '../../constantes/constantes';
 
 // export const getAllGames = () =>{
 //     // return async function (){
@@ -63,6 +63,12 @@ export function getGeneros(){
         })
     }
 }
+// export function getGenerosDetail(genre){
+//     return {
+//         type:GET_GENERO_DETAIL,
+//         payload:genre
+//     }
+// }
 
 export function orden(order){
     return {

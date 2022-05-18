@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
-import { getAllGames } from "../../redux/actions/actions.js"
+import { getAllGames, getGeneros } from "../../redux/actions/actions.js"
 import TarjetaSimple from "../tarjeta/TarjetaSimple.jsx"
 
 export default function Games(){
@@ -9,9 +9,9 @@ export default function Games(){
     let dispatch = useDispatch()
 
     useEffect(()=>{
+        dispatch(getGeneros())
         dispatch(getAllGames())
     },[])
-    console.log(games)
 
     return (
         <div>
