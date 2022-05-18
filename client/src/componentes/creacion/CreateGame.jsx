@@ -9,14 +9,31 @@ export default function CreateGame(){
     let genero = useSelector(state=> state.generos)
     let dispatch = useDispatch()
     const generos= []
-    console.log(genero)
+    const plataformas=['Xbox','PC','PlayStation','GameBoy', 'Nintendo Switch', 'Ios', 'Android']
+    
+    useEffect(()=>{
+        dispatch(getGeneros())
+    },[dispatch])
 
     for(let i=0; i<genero.length;i++){
         generos.push(genero[i].name)
     }
-    console.log(generos)
-
     const [game, setGame] = useState({})
+    let [check, setCheck]=useState(new Array(19).fill(false))//new Array(generos.length).fill(false)
+
+    function checkOnChange (position){
+        const upCheck = check.map((item, index) =>
+        index === position ? !item : item)
+        setCheck(upCheck)
+
+        let parcial=[]
+        upCheck.map((currentState, index)=>{
+            if(currentState===true){
+                parcial=parcial.concat(generos[index])
+            }
+        })
+        setGame({...game, genero:parcial})
+    }
 
     function onInputChange(e){
         e.preventDefault()
@@ -29,14 +46,10 @@ export default function CreateGame(){
     function onSubmit(e){
         e.preventDefault();
         console.log(game)
-        // axios.post('http://localhost:3001/videogames', game)
-        // .then(()=>{
-        // })
+        axios.post('http://localhost:3001/videogames', game)
+        .then(()=>{
+        })
     }
-
-    useEffect(()=>{
-        dispatch(getGeneros())
-    },[])
 
     return (
         <form onSubmit={onSubmit}>
@@ -52,16 +65,28 @@ export default function CreateGame(){
             {
                 generos.map((genero, index)=> {
                     // console.log(genero)
-                    return (<>
-                                <input name="genero" onChange={onInputChange} type="checkbox" value={genero}/>
+                    return (<div key={index}>
+                                <input type="checkbox" name="genero" onChange={()=>checkOnChange(index)}
+                                 value={genero}
+                                />
                                 <label >{genero}</label>
-                                </>)
-                })
+                            </div>)
+                }) /////
             }
             <label>Rating</label>
             <input onChange={onInputChange} name="rating" type="text" value={game.rating}/>
             <label>Plataformas</label>
-            <input onChange={onInputChange} name="plataformas" type="text" value={game.plataformas}/>
+            {
+                plataformas.map((platf, index)=> {
+                    // console.log(genero)
+                    return (<div key={index}>
+                                <input type="checkbox" name="genero" onChange={()=>checkOnChange(index)}
+                                 value={platf}
+                                />
+                                <label >{platf}</label>
+                            </div>)
+                }) 
+            }
             <input type="submit" onClick={()=>alert('Creado con exito')}/>
         </form>
     )
