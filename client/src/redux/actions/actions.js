@@ -16,8 +16,8 @@ import { GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDEN } from '
 // }
 
 export function getAllGames(){
-    return function(dispatch){
-        axios.get('http://localhost:3001/videogames')
+    return async function(dispatch){
+        await axios.get('http://localhost:3001/videogames')
         .then(games=>{
             dispatch({
                 type: GET_GAME,
@@ -53,8 +53,8 @@ export function getDetailGame(id){
 }
 
 export function getGeneros(){
-    return function(dispatch){
-        axios.get(`http://localhost:3001/genres`)
+    return async function(dispatch){
+        await axios.get(`http://localhost:3001/genres`)
         .then(genero=>{
             dispatch({
                 type: GET_GENEROS,

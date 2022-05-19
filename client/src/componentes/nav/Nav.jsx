@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import SearchGame from '../busqueda/SearchGame'
 import Orden from '../orden/Orden'
-import "./Nav.css"
+// import "./Nav.css"
 
 //NO CAMBIEN EL CLASS COMPONENT A FUNCTIONAL COMPONENT PORQUE SINO LOS TEST NO VAN A CORRER!!!
 export default function Nav () {

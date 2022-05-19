@@ -15,9 +15,17 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 const datos = async ()=>{
-    const arreglo = await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
+    const arreglo1 = await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
+    const arreglo2 = await axios.get(arreglo1.data.next)
+    const arreglo3 = await axios.get(arreglo2.data.next)
+    const arreglo4 = await axios.get(arreglo3.data.next)
+    const arreglo5 = await axios.get(arreglo4.data.next)
     
-    const infoSimpleApi = arreglo.data.results.map(function(datos) {const info={
+    const arr1= arreglo1.data.results.concat(arreglo2.data.results)
+    const arr2= arr1.concat(arreglo3.data.results)
+    const arr3= arr2.concat(arreglo4.data.results)
+    const arr4= arr3.concat(arreglo5.data.results)
+    const infoSimpleApi = arr4.map(function(datos) {const info={
         id: datos.id,
         name: datos.name,
         genres: datos.genres.map(genero=> genero.name),
@@ -30,8 +38,8 @@ const datos = async ()=>{
     // const concatenar = juegosDB.concat(simple)
     let allGames = [...juegosDB, ...infoSimpleApi]
     // let allGames = [...infoSimpleApi]
-    return allGames
     // return infoSimpleApi
+    return allGames
 }           ///id, name, released, rating, genres, platforms, reviews_text_count, background_image, 
 
 const juegos = async (game)=>{

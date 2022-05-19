@@ -21,6 +21,7 @@ export default function CreateGame(){
     }
     const [game, setGame] = useState({})
     let [check, setCheck]=useState(new Array(19).fill(false))//new Array(generos.length).fill(false)
+    let [checkP, setCheckP]=useState(new Array(plataformas.length).fill(false))
 
     function checkOnChange (position){
         const upCheck = check.map((item, index) =>
@@ -36,6 +37,20 @@ export default function CreateGame(){
         setGame({...game, genero:parcial})
     }
 
+    function checkOnChangePlat (position){
+        const upCheck = checkP.map((item, index) =>
+        index === position ? !item : item)
+        setCheckP(upCheck)
+
+        let parcial=[]
+        upCheck.map((currentState, index)=>{
+            if(currentState===true){
+                parcial=parcial.concat(plataformas[index])
+            }
+        })
+        setGame({...game, plataformas:parcial})
+    }
+
     function onInputChange(e){
         e.preventDefault()
         setGame({
@@ -46,10 +61,10 @@ export default function CreateGame(){
 
     function onSubmit(e){
         e.preventDefault();
-        console.log(game)
         axios.post('http://localhost:3001/videogames', game)
         .then(()=>{
         })
+        console.log(game)
     }
 
     return (
@@ -83,7 +98,7 @@ export default function CreateGame(){
                 plataformas.map((platf, index)=> {
                     // console.log(genero)
                     return (<div key={index}>
-                                <input type="checkbox" name="genero" onChange={()=>checkOnChange(index)}
+                                <input type="checkbox" name="plataformas" onChange={()=>checkOnChangePlat(index)}
                                  value={platf}
                                 />
                                 <label >{platf}</label>
