@@ -1,4 +1,4 @@
-import { ASCENDENTE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_GENERO_DETAIL, GET_SEARCH_GAME, ORDEN } from "../../constantes/constantes.js";
+import { ASCENDENTE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDEN } from "../../constantes/constantes.js";
 
 const initialState = {
     games: [],
@@ -32,27 +32,19 @@ export default function reducer(state = initialState, action){
             }
         case ORDEN:
             let orderGames = [...state.games]
-            orderGames = orderGames.sort((a,b)=>{
+            orderGames = orderGames.sort((a,b) => {
                 if(a.name<b.name){
                     return action.payload === ASCENDENTE ? -1 : 1;
                 }
                 if(a.name>b.name){
                     return action.payload ===ASCENDENTE ? 1 : -1;
                 }
+                return 1
             })
             return{
                 ...state,
                 games: orderGames
             }
-        // case GET_GENERO_DETAIL:
-        //     console.log(state.generos)
-        //     let generoCopy= [...state.generos]
-        //     console.log(generoCopy)
-        //     let detail=generoCopy.filter(g=>g.name===action.payload)
-        //     return{
-        //         ...state,
-        //         generoDetail: detail
-        //     }
         default:
             return state
     }

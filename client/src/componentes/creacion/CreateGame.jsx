@@ -4,10 +4,10 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import { getGeneros } from "../../redux/actions/actions.js"
+import "./CreateGame.css"
 
 export default function CreateGame(){
     let genero = useSelector(state=> state.generos)
-    console.log(genero)
     let dispatch = useDispatch()
     const generos= []
     const plataformas=['Xbox','PC','PlayStation','GameBoy', 'Nintendo Switch', 'Ios', 'Android']
@@ -63,6 +63,7 @@ export default function CreateGame(){
             <label>Fecha de Lanzamiento</label>
             <input onChange={onInputChange} name="fechaLanzamiento" type="text" value={game.fechaLanzamiento}/>
             <label>Generos</label>
+            <div className="scroll">
             {
                 generos.map((genero, index)=> {
                     // console.log(genero)
@@ -74,6 +75,7 @@ export default function CreateGame(){
                             </div>)
                 }) /////
             }
+            </div>
             <label>Rating</label>
             <input onChange={onInputChange} name="rating" type="text" value={game.rating}/>
             <label>Plataformas</label>

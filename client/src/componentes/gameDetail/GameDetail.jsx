@@ -13,9 +13,8 @@ export default function GameDetail(){
 
     useEffect(()=>{
         dispatch(getDetailGame(id))
-    },[])
+    })
 
-    console.log(game)
     return (
         <div key={game.id}>
             <h1>{game.name}</h1>
@@ -24,9 +23,9 @@ export default function GameDetail(){
             <p>Plataformas: {game.plataformas}</p>
             <p>Rating: {game.rating}</p>
             <img src={game.image} alt={game.name}/>
-            <p>
-            {game.genres ? game.genres.map((genero) => <Link to={`/genero/${genero.name}`}><p>{genero.name}</p></Link>):0}
-            </p>
+            <div>
+            {game.genres ? game.genres.map((genero, index) => <Link key={index} to={`/genero/${genero.name}`}><p>{genero.name}</p></Link>):0}
+            </div>
         </div>
     )
 }

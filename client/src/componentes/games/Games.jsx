@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import { getAllGames, getGeneros } from "../../redux/actions/actions.js"
 import TarjetaSimple from "../tarjeta/TarjetaSimple.jsx"
+import "./Games.css"
 
 export default function Games(){
     let games = useSelector(state=> state.games)
@@ -11,12 +12,12 @@ export default function Games(){
     useEffect(()=>{
         dispatch(getGeneros())
         dispatch(getAllGames())
-    },[])
+    },[dispatch])
 
     return (
-        <div>
+        <div  className="contenedor">
             {
-                games.map(datos=><TarjetaSimple 
+                games.map(datos=><TarjetaSimple key={datos.id}
                     id={datos.id}
                     image={datos.image}
                     name={datos.name}   
