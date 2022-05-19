@@ -29,7 +29,8 @@ const datos = async ()=>{
         id: datos.id,
         name: datos.name,
         genres: datos.genres.map(genero=> genero.name),
-        image: datos.background_image
+        image: datos.background_image,
+        rating: datos.rating
     } 
     return info
     }

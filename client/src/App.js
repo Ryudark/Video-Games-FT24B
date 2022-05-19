@@ -18,7 +18,7 @@ function App() {
     dispatch(getAllGames())
     dispatch(getGeneros())
   },[dispatch])
-  const ITEMS_PER_PAGE=10;
+  const ITEMS_PER_PAGE=15;
   let games = useSelector(state=> state.games) 
   
   console.log(games)
@@ -63,7 +63,7 @@ function App() {
       <Nav />
       <Routes>
         {/* <Route path='/home' element={<Home />}/> */}
-        <Route path="/" element={<Pagination  items={items} handlerNext={handlerNext} handlerPrevious={handlerPrevious}/>} />
+        <Route path="/" element={<Pagination  items={games} handlerNext={handlerNext} handlerPrevious={handlerPrevious}/>} />
         <Route path="/videogames/:id" element={<GameDetail />} />
         <Route path="/games/create" element={<CreateGame />} />
         <Route path="/genero/:genero" element={<Genero />} />
