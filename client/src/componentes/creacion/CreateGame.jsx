@@ -19,7 +19,15 @@ export default function CreateGame(){
     for(let i=0; i<genero.length;i++){
         generos.push(genero[i].name)
     }
-    const [game, setGame] = useState({})
+    const [game, setGame] = useState({
+        name: "",
+        image: "",
+        descripcion: "",
+        released: "",
+        rating: "",
+        genres: [],
+        platforms: [],
+      })
     let [check, setCheck]=useState(new Array(19).fill(false))//new Array(generos.length).fill(false)
     let [checkP, setCheckP]=useState(new Array(plataformas.length).fill(false))
 
@@ -62,13 +70,21 @@ export default function CreateGame(){
     function onSubmit(e){
         e.preventDefault();
         axios.post('http://localhost:3001/videogames', game)
-        .then(()=>{
-        })
-        console.log(game)
+        setGame({
+            name: "",
+            image: "",
+            descripcion: "",
+            released: "",
+            rating: "",
+            genres: [],
+            platforms: [],
+          });
+        document.getElementById("formulario").reset();
+        window.location.reload();
     }
 
     return (
-        <form onSubmit={onSubmit}>
+        <form id="formulario" onSubmit={onSubmit}>
             <label>Nombre</label>
             <input onChange={onInputChange} name="name" type="text" value={game.name}/>
             <label>Descripción</label>

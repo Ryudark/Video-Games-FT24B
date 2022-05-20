@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
-import { ASCENDENTE, DESCENDENTE } from "../../constantes/constantes";
-import { ordenA, ordenR } from "../../redux/actions/actions";
+import { ALL, ASCENDENTE, CREADO, DESCENDENTE, NOCREADO } from "../../constantes/constantes";
+import { creado, ordenA, ordenR } from "../../redux/actions/actions";
 
 export default function Orden(){
     const dispatch = useDispatch();
@@ -10,6 +10,9 @@ export default function Orden(){
     }
     function onSelectChangeR(e){
         dispatch(ordenR(e.target.value))
+    }
+    function onSelectChangeCreate(e){
+        dispatch(creado(e.target.value))
     }
 
     return(
@@ -25,6 +28,12 @@ export default function Orden(){
                 <option>---RATING---</option>
                 <option value={ASCENDENTE}>ASCENDENTE</option>
                 <option value={DESCENDENTE}>DESCENDENTE</option>
+            </select>
+            <p>CREADO</p>
+            <select name="select" onChange={onSelectChangeCreate}>
+                <option value={ALL}>---ALL---</option>
+                <option value={CREADO}>CREADO</option>
+                <option value={NOCREADO}>NOCREADO</option>
             </select>
             
         </div>

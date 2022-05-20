@@ -1,9 +1,9 @@
-import { ASCENDENTE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDENA, ORDENR } from "../../constantes/constantes.js";
+import { ALL, ASCENDENTE, CREADO, CREATE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, NOCREADO, ORDENA, ORDENR } from "../../constantes/constantes.js";
 
 const initialState = {
     games: [],
     gameDetail: {},
-    gameSearch: [],
+    allGames: [],
     generos:[],
     generoDetail:[]
 }
@@ -13,7 +13,8 @@ export default function reducer(state = initialState, action){
         case GET_GAME: 
         return {
             ...state,
-            games: action.payload.data
+            games: action.payload.data,
+            allGames: action.payload.data
         }
         case GET_SEARCH_GAME:
             return{
@@ -31,7 +32,7 @@ export default function reducer(state = initialState, action){
                 generos:action.payload.data
             }
         case ORDENA:
-            let orderGames = [...state.games]
+            let orderGames = [...state.allGames]
             orderGames = orderGames.sort((a,b) => {
                 if(a.name<b.name){
                     return action.payload === ASCENDENTE ? -1 : 1;
@@ -46,7 +47,7 @@ export default function reducer(state = initialState, action){
                 games: orderGames
             }
         case ORDENR:
-            let orderGamesR = [...state.games]
+            let orderGamesR = [...state.allGames]
             orderGamesR = orderGamesR.sort((a,b) => {
                 if(a.rating<b.rating){
                     return action.payload === ASCENDENTE ? -1 : 1;
@@ -59,6 +60,15 @@ export default function reducer(state = initialState, action){
             return{
                 ...state,
                 games: orderGamesR
+            }
+        case CREATE:
+            let allgames = [...state.allGames]
+            const filtroCreado= action.payload===CREADO 
+            ? allgames.filter(creado=> creado.esCreado===true)
+            : allgames.filter(creado=> creado.esCreado!==true)
+            return{
+                ...state,
+                games: action.payload=== ALL ? state.allGames : filtroCreado
             }
         default:
             return state

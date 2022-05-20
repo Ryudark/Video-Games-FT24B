@@ -1,19 +1,5 @@
 import axios from 'axios';
-import { GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDENA, ORDENR } from '../../constantes/constantes';
-
-// export const getAllGames = () =>{
-//     // return async function (){
-//     //     const getGames = await axios.get('http://localhost:3001/videogames');
-//     //     return getGames;
-//     // }
-//     try{
-//         fetch('http://localhost:3001/videogames')
-//         .then(data => console.log(data))
-//     }
-//     catch(e){
-//         return e
-//     }
-// }
+import { CREATE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDENA, ORDENR } from '../../constantes/constantes';
 
 export function getAllGames(){
     return async function(dispatch){
@@ -62,6 +48,11 @@ export function getGeneros(){
         })
     }
 }
+export function postGame(game){
+    return async function(dispatch){
+        await axios.post('http://localhost:3001/videogames', game)
+    }
+}
 
 export function ordenA(order){
     return {
@@ -72,6 +63,12 @@ export function ordenA(order){
 export function ordenR(order){
     return {
         type: ORDENR,
+        payload: order
+    }
+}
+export function creado(order){
+    return {
+        type: CREATE,
         payload: order
     }
 }

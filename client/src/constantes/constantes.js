@@ -7,6 +7,11 @@ export const ORDENA ='ORDENA'
 export const ORDENR ='ORDENR'
 export const GET_GENERO_DETAIL='GET_GENERO_DETAIL'
 
+export const CREADO='CREADO'
+export const NOCREADO='NOCREADO'
+export const CREATE='CREATE'
+export const ALL='ALL'
+
 
 export const ASCENDENTE = 'ASCENDENTE'
 export const DESCENDENTE = 'DESCENDENTE'
