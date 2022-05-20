@@ -14,11 +14,13 @@ export default function Orden(){
 
     return(
         <div>
+            <p>ALFABETICO</p>
             <select name="select" onChange={onSelectChangeA}>
                 <option>---ALFABETICO---</option>
                 <option value={ASCENDENTE}>ASCENDENTE</option>
                 <option value={DESCENDENTE}>DESCENDENTE</option>
             </select>
+            <p>RATING</p>
             <select name="select" onChange={onSelectChangeR}>
                 <option>---RATING---</option>
                 <option value={ASCENDENTE}>ASCENDENTE</option>

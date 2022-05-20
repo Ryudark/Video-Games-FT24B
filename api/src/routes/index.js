@@ -155,6 +155,7 @@ router.get('/genres', async(req, res)=>{
 router.post('/videogames', async(req, res)=>{
     try{
         const {name, descripcion, fechaLanzamiento, rating, plataformas, image, genero} = req.body
+        console.log(plataformas)
         let buscarDB = await Videogames.findOne({
             where:{
                 name:name

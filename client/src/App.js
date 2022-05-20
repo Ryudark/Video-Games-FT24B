@@ -17,45 +17,45 @@ function App() {
   useEffect(()=>{
     dispatch(getAllGames())
     dispatch(getGeneros())
-  },[dispatch])
+  },[])
   const ITEMS_PER_PAGE=15;
   let games = useSelector(state=> state.games) 
   
-  console.log(games)
-  const [datosApi, setDatosApi]= useState(games);
-  const [items, setItems]= useState([...games].splice(0, ITEMS_PER_PAGE))
-  const [current, setCurrent]= useState(0)
-  console.log(items)
-
-
-  const handleNext = ()=>{
-    const totalItems = games.length;
-    const nextPage = current + 1;
-    const firstIndex = nextPage*ITEMS_PER_PAGE;
-    if(firstIndex>totalItems) return
-
-    setItems([...datosApi].splice(firstIndex, ITEMS_PER_PAGE))
-    setCurrent(nextPage)
+  const [items, setItems]= useState([])
+  function corteJuegos(){
+    const guardar=games.slice(0, ITEMS_PER_PAGE)
+    setItems(guardar)
   }
+  useEffect(()=>{
+    corteJuegos();
+  },[games])
+
+  const [current, setCurrent]= useState(1)
 
   const handlerNext = ()=>{
-    const totalItems = datosApi.length;
-    const nextPage = current + 1;
-
-    const firstIndex = nextPage*ITEMS_PER_PAGE;
-
-    if(firstIndex===totalItems) return
-
-    setItems([...datosApi].splice(firstIndex, ITEMS_PER_PAGE))
+    const totalItems = games.length;
+    const nextPage = current + 1;                 //2   3
+                                                  //1   2
+    const firstIndex = current*ITEMS_PER_PAGE;    //15  30
+    const lastIndex = nextPage*ITEMS_PER_PAGE;    //30  45
+    setItems(games.slice(firstIndex, lastIndex))  //15-30 30-45
     setCurrent(nextPage)
+    if(firstIndex>totalItems) return
   }
+
+  console.log(current)
+
   const handlerPrevious = ()=>{
     const prePage= current-1
-    if(prePage<0) return
-    const firstIndex = prePage*ITEMS_PER_PAGE;
-
-    setItems([...datosApi].splice(firstIndex, ITEMS_PER_PAGE))
+    const prePePage = current-2
+    if(prePePage<=-1) return
+                                                //1 2 
+                                                //0 1 
+    const firstIndex = prePePage*ITEMS_PER_PAGE;  //0 15 
+    const lastIndex = prePage*ITEMS_PER_PAGE;   //15 30
+    setItems(games.slice(firstIndex, lastIndex))    //0-15  15-30
     setCurrent(prePage)
+
   }
 
   return (
@@ -63,7 +63,7 @@ function App() {
       <Nav />
       <Routes>
         {/* <Route path='/home' element={<Home />}/> */}
-        <Route path="/" element={<Pagination  items={games} handlerNext={handlerNext} handlerPrevious={handlerPrevious}/>} />
+        <Route path="/" element={<Pagination  items={items} handlerNext={handlerNext} handlerPrevious={handlerPrevious}/>} />
         <Route path="/videogames/:id" element={<GameDetail />} />
         <Route path="/games/create" element={<CreateGame />} />
         <Route path="/genero/:genero" element={<Genero />} />
