@@ -1,6 +1,5 @@
 import React from "react";
 import TarjetaSimple from "../tarjeta/TarjetaSimple";
-// import Games from "../games/games";
 
 export default function Pagination(props){
 
@@ -19,7 +18,11 @@ export default function Pagination(props){
                     name={datos.name}   
                     genero={datos.genres}
                 />)
-            }
+                }
+            <ul>
+                <button onClick={props.handlerPrevious}>Previo</button>
+                <button onClick={props.handlerNext}>Siguiente</button>
+            </ul>
         </nav>
     )
 }

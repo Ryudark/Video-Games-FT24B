@@ -15,6 +15,30 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 const datos = async ()=>{
+    // const arreglo=[]
+    // const url= `https://api.rawg.io/api/games?key=${KEY}`
+    // const arreglo=[]
+    // const url= `https://api.rawg.io/api/games?key=${KEY}`
+    // try{
+        
+    //     for(let i=0; i<5; i++){
+    //         let infoSimpleApi= await axios.get(url)
+    //         infoSimpleApi.data.results?.map(datos=>{
+    //             arreglo.push({
+    //                 id: datos.id,
+    //                 name: datos.name,
+    //                 genres: datos.genres.map(genero=> genero.name),
+    //                 image: datos.background_image,
+    //                 rating: datos.rating
+    //             })
+    //         })
+    //         url=infoSimpleApi.data.next
+    //         console.log(url)
+    //     }
+    // }
+    // catch(e){
+    //     console.log(e)
+    // }
     const arreglo1 = await axios.get(`https://api.rawg.io/api/games?key=${KEY}`)
     const arreglo2 = await axios.get(arreglo1.data.next)
     const arreglo3 = await axios.get(arreglo2.data.next)
@@ -45,10 +69,10 @@ const datos = async ()=>{
 
 const juegos = async (game)=>{
     let busquedaApi = await axios.get(`https://api.rawg.io/api/games?search=${game}?&key=${KEY}`)
-    const infoSimpleApi = busquedaApi.data.results.map(function(datos) {const info={
+    const infoSimpleApi = busquedaApi.data.results?.map(function(datos) {const info={
         id: datos.id,
         name: datos.name,
-        genres: datos.genres,
+        genres: datos.genres.map(genero=> genero.name),
         image: datos.background_image
         }    
         return info
@@ -56,12 +80,12 @@ const juegos = async (game)=>{
     let juegosDB = await Videogames.findAll()
     let allGames = [...juegosDB, ...infoSimpleApi]
 
-            const total = allGames.filter(item=>item.name.includes(game))
-            console.log(total)
-            if(total.length>0){
-                return total
-            }
-            else throw 'No existe juego'
+    return allGames
+    // const total = allGames.filter(item=>item.name.toLowerCase().includes(game.toLowerCase()))
+    // if(total.length>0){
+    //     return total
+    // }
+    // else throw 'No existe juego'
         // return arreglo.data.results
 }
 
@@ -115,14 +139,16 @@ const generos = async()=>{
 router.get('/videogames', async (req, res)=>{
     try{
         const {name}= req.query
+        const totalJuegos= await datos()
         if(name){
-            const datosJuegos= await juegos(name)
-            console.log(datosJuegos)
-            res.json(datosJuegos)
+            const busqueda= await juegos(name)
+            const resultado = busqueda.filter(item=>item.name.toLowerCase().includes(name.toLowerCase()))
+            totalJuegos.length? res.status(200).json(resultado): res.status(404).send("No existe el Videojuego!!")
+            // const resultado= totalJuegos.filter(item=>item.name.toLowerCase().includes(name.toLowerCase()))
+            // totalJuegos.length? res.status(200).json(resultado): res.status(404).send("No existe el Videojuego!!")
         }
         else{
-            const  datosApi = await datos()
-            res.json(datosApi)
+            res.json(totalJuegos)
         }
     }
     catch(e){

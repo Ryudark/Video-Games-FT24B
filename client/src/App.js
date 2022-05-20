@@ -6,94 +6,14 @@ import GameDetail from "./componentes/gameDetail/GameDetail";
 import Nav from "./componentes/nav/Nav";
 import CreateGame from "./componentes/creacion/CreateGame";
 import Genero from "./componentes/genero/Genero";
-import Pagination from "./componentes/paginacion/Pagination";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getAllGames, getGeneros } from "./redux/actions/actions";
 
 function App() {
-  let dispatch = useDispatch()
-  useEffect(()=>{
-    dispatch(getAllGames())
-    dispatch(getGeneros())
-  },[])
-  const ITEMS_PER_PAGE=15;
-  let games = useSelector(state=> state.games) 
-  const [actual, setActual] =useState(ITEMS_PER_PAGE)
-
-  
-  const [items, setItems]= useState([])
-  function corteJuegos(){
-    const guardar=games.slice(0, ITEMS_PER_PAGE)
-    if(games.length<=ITEMS_PER_PAGE){
-      setActual(games.length)
-    }
-    setItems(guardar)
-  }
-  console.log(ITEMS_PER_PAGE)
-  console.log(games.length)
-  // console.log(actual)
-
-  useEffect(()=>{
-    corteJuegos();
-  },[games])
-
-  const [current, setCurrent]= useState(1)
-
-  const handlerNext = ()=>{
-    if(actual>0){
-      const totalItems = games.length;
-      const nextPage = current + 1;                 //2   3
-                                                    //1   2
-      const firstIndex = current*actual;    //15  30
-      const lastIndex = nextPage*actual;    //30  45
-      if(firstIndex>totalItems) return
-      setItems(games.slice(firstIndex, lastIndex))  //15-30 30-45
-      setCurrent(nextPage)
-    }
-    else{
-      const totalItems = games.length;
-      const nextPage = current + 1;                 //2   3
-                                                    //1   2
-      const firstIndex = current*ITEMS_PER_PAGE;    //15  30
-      const lastIndex = nextPage*ITEMS_PER_PAGE;    //30  45
-      if(firstIndex>totalItems) return
-      setItems(games.slice(firstIndex, lastIndex))  //15-30 30-45
-      setCurrent(nextPage)
-    }
-  }
-
-  console.log(current)
-
-  const handlerPrevious = ()=>{
-    if(actual>0){
-      const prePage= current-1
-      const prePePage = current-2
-      if(prePePage<=-1) return
-      const firstIndex = prePePage*actual;  //0 15 
-      const lastIndex = prePage*actual;   //15 30
-      setItems(games.slice(firstIndex, lastIndex))    //0-15  15-30
-      setCurrent(prePage)
-    }
-    else{
-      const prePage= current-1
-      const prePePage = current-2
-      if(prePePage<=-1) return
-      const firstIndex = prePePage*ITEMS_PER_PAGE;  //0 15 
-      const lastIndex = prePage*ITEMS_PER_PAGE;   //15 30
-      setItems(games.slice(firstIndex, lastIndex))    //0-15  15-30
-      setCurrent(prePage)
-    }
-
-  }
 
   return (
     <div className="App">
-      <Nav />
       <Routes>
-        {/* <Route path='/home' element={<Home />}/> */}
-        <Route path="/" element={<Pagination  items={items} handlerNext={handlerNext} handlerPrevious={handlerPrevious}/>} />
+        <Route path='/' element={<Home />}/>
+        <Route path="/Home" element={<Games />} />
         <Route path="/videogames/:id" element={<GameDetail />} />
         <Route path="/games/create" element={<CreateGame />} />
         <Route path="/genero/:genero" element={<Genero />} />

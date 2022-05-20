@@ -1,35 +1,41 @@
-import { ALL, ASCENDENTE, CREADO, CREATE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, NOCREADO, ORDENA, ORDENR } from "../../constantes/constantes.js";
+import { ALL, ASCENDENTE, CREADO, CREATE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDENA, ORDENR } from "../../constantes/constantes.js";
 
 const initialState = {
     games: [],
     gameDetail: {},
     allGames: [],
     generos:[],
-    generoDetail:[]
+    generoDetail:[],
+    platforms: []
 }
 
 export default function reducer(state = initialState, action){
     switch(action.type){
         case GET_GAME: 
-        return {
-            ...state,
-            games: action.payload.data,
-            allGames: action.payload.data
-        }
+            // let platforms = [];
+            // action.payload.forEach((game) => {
+            //     platforms = [...platforms, ...game.platforms];
+            // });
+            return {
+                ...state,
+                games: action.payload,
+                allGames: action.payload
+            }
         case GET_SEARCH_GAME:
             return{
                 ...state,
-                games: action.payload.data
+                games: action.payload,
+                allGames: action.payload
             }
         case GET_DETAIL_GAME:
             return{
                 ...state,
-                gameDetail: action.payload.data
+                gameDetail: action.payload
             }
         case GET_GENEROS:
             return{
                 ...state,
-                generos:action.payload.data
+                generos:action.payload
             }
         case ORDENA:
             let orderGames = [...state.allGames]
@@ -50,10 +56,10 @@ export default function reducer(state = initialState, action){
             let orderGamesR = [...state.allGames]
             orderGamesR = orderGamesR.sort((a,b) => {
                 if(a.rating<b.rating){
-                    return action.payload === ASCENDENTE ? -1 : 1;
+                    return action.payload === ASCENDENTE ? 1 : -1;
                 }
                 if(a.rating>b.rating){
-                    return action.payload ===ASCENDENTE ? 1 : -1;
+                    return action.payload ===ASCENDENTE ? -1 : 1;
                 }
                 return 1
             })

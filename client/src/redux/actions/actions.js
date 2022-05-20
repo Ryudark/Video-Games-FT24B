@@ -7,7 +7,7 @@ export function getAllGames(){
         .then(games=>{
             dispatch({
                 type: GET_GAME,
-                payload: games
+                payload: games.data
             })
         })
     }
@@ -17,9 +17,10 @@ export function searchGame(name){
     return function(dispatch){
         axios.get(`http://localhost:3001/videogames?name=${name}`)
         .then(games=>{
+            console.log(games)
             dispatch({
                 type:GET_SEARCH_GAME,
-                payload: games
+                payload: games.data
             })
         })
     }
@@ -31,7 +32,7 @@ export function getDetailGame(id){
         .then(game=>{
             dispatch({
                 type: GET_DETAIL_GAME,
-                payload: game
+                payload: game.data
             })
         })
     }
@@ -43,7 +44,7 @@ export function getGeneros(){
         .then(genero=>{
             dispatch({
                 type: GET_GENEROS,
-                payload: genero
+                payload: genero.data
             })
         })
     }

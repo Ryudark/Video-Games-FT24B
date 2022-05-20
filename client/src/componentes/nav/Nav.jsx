@@ -7,7 +7,7 @@ import Orden from '../orden/Orden'
 export default function Nav () {
     return (
         <div className='fixed'>
-            <Link to='/'>
+            <Link to='/home'>
                 Home
             </Link>
             <Link to='/games/create'>

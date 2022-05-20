@@ -3,11 +3,14 @@ import { useState } from "react"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
-import { getGeneros } from "../../redux/actions/actions.js"
+import { Link } from "react-router-dom"
+import { getGeneros, postGame } from "../../redux/actions/actions.js"
 import "./CreateGame.css"
 
 export default function CreateGame(){
     let genero = useSelector(state=> state.generos)
+    const juego = useSelector((state) => state.games);
+    const platforms = useSelector((state) => state.platforms);
     let dispatch = useDispatch()
     const generos= []
     const plataformas=['Xbox','PC','PlayStation','GameBoy', 'Nintendo Switch', 'Ios', 'Android']
@@ -23,10 +26,10 @@ export default function CreateGame(){
         name: "",
         image: "",
         descripcion: "",
-        released: "",
+        fechaLanzamiento: "",
         rating: "",
-        genres: [],
-        platforms: [],
+        genero: [],
+        plataformas: [],
       })
     let [check, setCheck]=useState(new Array(19).fill(false))//new Array(generos.length).fill(false)
     let [checkP, setCheckP]=useState(new Array(plataformas.length).fill(false))
@@ -61,7 +64,7 @@ export default function CreateGame(){
 
     function onInputChange(e){
         e.preventDefault()
-        setGame({
+        setGame({   
             ...game,
             [e.target.name]:e.target.value
         })
@@ -69,21 +72,54 @@ export default function CreateGame(){
 
     function onSubmit(e){
         e.preventDefault();
-        axios.post('http://localhost:3001/videogames', game)
-        setGame({
-            name: "",
-            image: "",
-            descripcion: "",
-            released: "",
-            rating: "",
-            genres: [],
-            platforms: [],
-          });
-        document.getElementById("formulario").reset();
-        window.location.reload();
+        // axios.post('http://localhost:3001/videogames', game)
+        if (!game.name.trim()) {
+            return alert("Necesita poner un nombre");
+        } 
+        else if (juego.find( (e) => e.name.toLowerCase().trim() === game.name.toLowerCase().trim())) {
+            return alert(`El nombre ${game.name} ya existe`);
+        }
+        else if (game.descripcion.trim() === "") {
+            return alert("Descripcion requerida");
+        } 
+        else if (game.fechaLanzamiento.trim() === "") {
+            return alert("Fecha de lanzamiento requerida");
+        } 
+        else if (game.fechaLanzamiento < "1951-05-03") {
+            return alert("La fecha no puede ser inferior a 03/05/1951");
+        } 
+        else if (game.genero.length === 0) {
+            return alert("Seleccione uno o más generos");
+        } 
+        else if (
+            game.rating.trim() === "" ||
+            game.rating < 1 ||
+            game.rating > 5
+        ) {
+        return alert("Rating debe estar entre 1 o 5");
+        } 
+        else if (game.plataformas.length === 0) {
+            return alert("Seleccione uno o más plataformas");
+        }
+        else{
+            dispatch(postGame(game))
+            alert("Felicidades, Videojuego Creado");
+            setGame({
+                name: "",
+                image: "",
+                descripcion: "",
+                fechaLanzamiento: "",
+                rating: "",
+                genero: [],
+                plataformas: [],
+              });
+            document.getElementById("formulario").reset();
+            window.location.reload();
+        }
     }
 
     return (
+        <div>
         <form id="formulario" onSubmit={onSubmit}>
             <label>Nombre</label>
             <input onChange={onInputChange} name="name" type="text" value={game.name}/>
@@ -92,7 +128,7 @@ export default function CreateGame(){
             <label>Imagen</label>
             <input onChange={onInputChange} name="image" type="text" value={game.image}/>
             <label>Fecha de Lanzamiento</label>
-            <input onChange={onInputChange} name="fechaLanzamiento" type="text" value={game.fechaLanzamiento}/>
+            <input onChange={onInputChange} name="fechaLanzamiento" type="date" value={game.fechaLanzamiento}/>
             <label>Generos</label>
             <div className="scroll">
             {
@@ -121,7 +157,11 @@ export default function CreateGame(){
                             </div>)
                 }) 
             }
-            <input type="submit" onClick={()=>alert('Creado con exito')}/>
+            <input type="submit" />
         </form>
+        <Link to="/home">
+            <button>HOME</button>
+        </Link>
+    </div>
     )
 }

@@ -1,8 +1,13 @@
-// import { useEffect } from "react"
-// import { useDispatch } from "react-redux"
-// import { useSelector } from "react-redux"
-// import { getAllGames } from "../../redux/actions/actions.mjs"
+import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Home(){ 
-    return <div>Probando</div>
+    return(
+        <div>
+            <h1 className="title">"VIDEOGAMES PI"</h1>
+            <Link to="/home">
+                <button>HOME</button>
+            </Link>
+        </div>
+    )
 }

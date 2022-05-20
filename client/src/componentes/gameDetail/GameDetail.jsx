@@ -26,6 +26,9 @@ export default function GameDetail(){
             <div>
             {game.genres ? game.genres.map((genero, index) => <Link key={index} to={`/genero/${genero.name}`}><p>{genero.name}</p></Link>):0}
             </div>
+            <Link to="/home">
+                <button>HOME</button>
+            </Link>
         </div>
     )
 }
