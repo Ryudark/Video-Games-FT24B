@@ -20,12 +20,21 @@ function App() {
   },[])
   const ITEMS_PER_PAGE=15;
   let games = useSelector(state=> state.games) 
+  // const [actual, setActual] =useState(ITEMS_PER_PAGE)
+
   
   const [items, setItems]= useState([])
   function corteJuegos(){
     const guardar=games.slice(0, ITEMS_PER_PAGE)
+    // if(games.length<=ITEMS_PER_PAGE){
+    //   setActual(games.length)
+    // }
     setItems(guardar)
   }
+  console.log(ITEMS_PER_PAGE)
+  console.log(games.length)
+  // console.log(actual)
+
   useEffect(()=>{
     corteJuegos();
   },[games])
@@ -38,9 +47,9 @@ function App() {
                                                   //1   2
     const firstIndex = current*ITEMS_PER_PAGE;    //15  30
     const lastIndex = nextPage*ITEMS_PER_PAGE;    //30  45
+    if(firstIndex>totalItems) return
     setItems(games.slice(firstIndex, lastIndex))  //15-30 30-45
     setCurrent(nextPage)
-    if(firstIndex>totalItems) return
   }
 
   console.log(current)
@@ -49,8 +58,6 @@ function App() {
     const prePage= current-1
     const prePePage = current-2
     if(prePePage<=-1) return
-                                                //1 2 
-                                                //0 1 
     const firstIndex = prePePage*ITEMS_PER_PAGE;  //0 15 
     const lastIndex = prePage*ITEMS_PER_PAGE;   //15 30
     setItems(games.slice(firstIndex, lastIndex))    //0-15  15-30

@@ -55,14 +55,14 @@ const juegos = async (game)=>{
         })
     let juegosDB = await Videogames.findAll()
     let allGames = [...juegosDB, ...infoSimpleApi]
-    if(allGames){
-            const total = await allGames.filter(item=>item.name.includes(game))
+
+            const total = allGames.filter(item=>item.name.includes(game))
+            console.log(total)
             if(total.length>0){
                 return total
             }
             else throw 'No existe juego'
         // return arreglo.data.results
-    }
 }
 
 const detail = async (id)=>{

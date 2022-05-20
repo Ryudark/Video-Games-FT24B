@@ -1,4 +1,4 @@
-import { ASCENDENTE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDEN, ORDENA, ORDENR } from "../../constantes/constantes.js";
+import { ASCENDENTE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDENA, ORDENR } from "../../constantes/constantes.js";
 
 const initialState = {
     games: [],
