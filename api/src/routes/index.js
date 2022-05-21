@@ -70,7 +70,9 @@ const datos = async ()=>{
         name: datos.name,
         genres: datos.genres.map(genero=> genero.name),
         image: datos.image,
-        rating: datos.rating
+        rating: datos.rating,
+        esCreado:datos.esCreado,
+        platforms:datos.platforms
     } 
     return info
     }
@@ -88,7 +90,8 @@ const juegos = async (game)=>{
         id: datos.id,
         name: datos.name,
         genres: datos.genres.map(genero=> genero.name),
-        image: datos.background_image
+        image: datos.background_image,
+        rating:datos.rating
         }    
         return info
         })
@@ -97,7 +100,19 @@ const juegos = async (game)=>{
           model: Genres,
         },
       })
-    let allGames = [...juegosDB, ...infoSimpleApi]
+    let juegosDBSimple= juegosDB.map(function(datos) {const info={
+        id: datos.id,
+        name: datos.name,
+        genres: datos.genres.map(genero=> genero.name),
+        image: datos.image,
+        rating: datos.rating,
+        esCreado:datos.esCreado,
+        platforms:datos.platforms
+    } 
+    return info
+    }
+    )
+    let allGames = [...juegosDBSimple, ...infoSimpleApi]
 
     return allGames
     // const total = allGames.filter(item=>item.name.toLowerCase().includes(game.toLowerCase()))
