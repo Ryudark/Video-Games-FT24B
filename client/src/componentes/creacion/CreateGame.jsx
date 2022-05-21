@@ -1,4 +1,3 @@
-import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
@@ -40,11 +39,10 @@ export default function CreateGame(){
         setCheck(upCheck)
 
         let parcial=[]
-        upCheck.map((currentState, index)=>{
-            if(currentState===true){
-                parcial=parcial.concat(generos[index])
-            }
-        })
+        upCheck.map((currentState, index)=>
+            currentState===true?
+                parcial=parcial.concat(generos[index]):0
+        )
         setGame({...game, genres:parcial})
     }
 
@@ -58,6 +56,7 @@ export default function CreateGame(){
             if(currentState===true){
                 parcial=parcial.concat(plataformas[index])
             }
+            return 0
         })
         setGame({...game, platforms:parcial})
     }

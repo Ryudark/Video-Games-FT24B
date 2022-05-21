@@ -11,11 +11,9 @@ export default function GameDetail(){
     let dispatch = useDispatch()
     const id = params.id ? params.id : game.id;
 
-    console.log(game)
-
     useEffect(()=>{
         dispatch(getDetailGame(id))
-    },[dispatch])
+    },[dispatch, id])
 
     return (
         <div key={game.id}>

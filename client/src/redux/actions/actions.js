@@ -75,7 +75,6 @@ export function creado(order){
 }
 
 export function filtradoPorGenero(genero) {
-    console.log(genero)
     return {
       type: FILTRADO_POR_GENERO,
       payload:genero,

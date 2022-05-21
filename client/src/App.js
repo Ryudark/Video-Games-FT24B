@@ -3,7 +3,6 @@ import Games from "./componentes/games/Games.jsx";
 import { Route, Routes } from "react-router-dom";
 import Home from "./componentes/home/Home";
 import GameDetail from "./componentes/gameDetail/GameDetail";
-import Nav from "./componentes/nav/Nav";
 import CreateGame from "./componentes/creacion/CreateGame";
 import Genero from "./componentes/genero/Genero";
 
