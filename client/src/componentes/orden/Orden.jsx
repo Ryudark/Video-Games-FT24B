@@ -1,10 +1,13 @@
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { ALL, ASCENDENTE, CREADO, DESCENDENTE, NOCREADO } from "../../constantes/constantes";
-import { creado, ordenA, ordenR } from "../../redux/actions/actions";
+import { creado, filtradoPorGenero, ordenA, ordenR } from "../../redux/actions/actions";
 
 export default function Orden(){
+
+    const genero = useSelector((state) => state.generos);
     const dispatch = useDispatch();
-    
+
     function onSelectChangeA(e){
         dispatch(ordenA(e.target.value))
     }
@@ -14,9 +17,27 @@ export default function Orden(){
     function onSelectChangeCreate(e){
         dispatch(creado(e.target.value))
     }
+    function onSelectChangeG(e){
+        dispatch(filtradoPorGenero(e.target.value))
+    }
 
     return(
         <div>
+            <select defaultValue="Genres"
+                onChange={(e) => onSelectChangeG(e)}
+                >
+                <option disabled>
+                    Generos
+                </option>
+                <option value="All">
+                    All
+                </option>
+                {genero.map((g) => (
+                    <option key={g.id} value={g.name}>
+                    {g.name}
+                    </option>
+                ))}
+            </select>
             <p>ALFABETICO</p>
             <select name="select" onChange={onSelectChangeA}>
                 <option>---ALFABETICO---</option>

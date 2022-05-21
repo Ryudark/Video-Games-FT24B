@@ -12,6 +12,7 @@ export const NOCREADO='NOCREADO'
 export const CREATE='CREATE'
 export const ALL='ALL'
 
+export const FILTRADO_POR_GENERO='FILTRADO_POR_GENERO'
 
 export const ASCENDENTE = 'ASCENDENTE'
 export const DESCENDENTE = 'DESCENDENTE'

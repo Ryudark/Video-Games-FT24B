@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const axios = require('axios');
 const res = require('express/lib/response');
-const {Videogames, Generos} = require('../db.js');
+const {Videogames, Genres} = require('../db.js');
 require('dotenv').config();
 
 // const {key} = require('../.env')
@@ -54,14 +54,29 @@ const datos = async ()=>{
         name: datos.name,
         genres: datos.genres.map(genero=> genero.name),
         image: datos.background_image,
+        rating: datos.rating,
+        platforms: datos.platforms?.map((el) => el.platform.name)
+    } 
+    return info
+    }
+    )
+    let juegosDB = await Videogames.findAll({
+        include: {
+          model: Genres,
+        },
+      })
+    let juegosDBSimple= juegosDB.map(function(datos) {const info={
+        id: datos.id,
+        name: datos.name,
+        genres: datos.genres.map(genero=> genero.name),
+        image: datos.image,
         rating: datos.rating
     } 
     return info
     }
     )
-    let juegosDB = await Videogames.findAll()
     // const concatenar = juegosDB.concat(simple)
-    let allGames = [...juegosDB, ...infoSimpleApi]
+    let allGames = [...juegosDBSimple, ...infoSimpleApi]
     // let allGames = [...infoSimpleApi]
     // return infoSimpleApi
     return allGames
@@ -77,7 +92,11 @@ const juegos = async (game)=>{
         }    
         return info
         })
-    let juegosDB = await Videogames.findAll()
+    let juegosDB = await Videogames.findAll({
+        include: {
+          model: Genres,
+        },
+      })
     let allGames = [...juegosDB, ...infoSimpleApi]
 
     return allGames
@@ -95,12 +114,12 @@ const detail = async (id)=>{
         const infoSimpleApi = {
                 id: detalle.data.id,
                 name: detalle.data.name,
-                descripcion: detalle.data.description_raw,
+                description: detalle.data.description_raw,
                 rating: detalle.data.rating,
                 genres: detalle.data.genres,
-                platforms: detalle.data.platforms,
+                platforms: detalle.data.platforms.map((p) => p.platform.name).join(", "),
                 image: detalle.data.background_image,
-                fechaLanzamiento: detalle.data.released
+                released: detalle.data.released
                 } 
         return infoSimpleApi
     }
@@ -108,11 +127,11 @@ const detail = async (id)=>{
         where:{
             id:id
         },
-        include:[
+        include:
         {
-            model:Generos,
+            model:Genres,
             attributes:["name"]
-        }]
+        }
     })
     return juego
 }
@@ -120,16 +139,15 @@ const detail = async (id)=>{
 const generos = async()=>{
     const generos = await axios.get(`https://api.rawg.io/api/genres?&key=${KEY}`)
     // let genre =[]
-    const tomarGeneros = await Generos.findAll()
+    const tomarGeneros = await Genres.findAll()
     if(tomarGeneros.length<1){
         for (let i = 0; i < generos.data.results.length; i++) {
             // genre.push(generos.data.results[i].name);
-            await Generos.create({
+            await Genres.create({
                 name: generos.data.results[i].name
             })
         }
-        const generoDB=Generos.findAll()
-        return Generos.findAll()
+        return Genres.findAll()
         // return genre
     }
     return generos.data.results
@@ -180,8 +198,7 @@ router.get('/genres', async(req, res)=>{
 
 router.post('/videogames', async(req, res)=>{
     try{
-        const {name, descripcion, fechaLanzamiento, rating, plataformas, image, genero} = req.body
-        console.log(plataformas)
+        const {name, description, released, rating, platforms, image, genres} = req.body
         let buscarDB = await Videogames.findOne({
             where:{
                 name:name
@@ -189,18 +206,18 @@ router.post('/videogames', async(req, res)=>{
         if(buscarDB){
             throw 'Juego en existencia'
         }
-        const generoGuardar= await Generos.findAll({where:{
-            name:genero
+        const generoGuardar= await Genres.findAll({where:{
+            name:genres,
         }})
         const nuevoVideojuego= await Videogames.create({
             name, 
-            descripcion,
-            fechaLanzamiento,
+            description,    
+            released,
             rating,
-            plataformas,
+            platforms,
             image,
         })
-        nuevoVideojuego.addGenero(generoGuardar)
+        nuevoVideojuego.setGenres(generoGuardar)
         res.json(nuevoVideojuego)
     } 
     catch(e){

@@ -11,16 +11,18 @@ export default function GameDetail(){
     let dispatch = useDispatch()
     const id = params.id ? params.id : game.id;
 
+    console.log(game)
+
     useEffect(()=>{
         dispatch(getDetailGame(id))
-    })
+    },[dispatch])
 
     return (
         <div key={game.id}>
             <h1>{game.name}</h1>
-            <h3>Lanzamiento: {game.fechaLanzamiento}</h3>
-            <p>Descripcion: {game.descripcion}</p>
-            <p>Plataformas: {game.plataformas}</p>
+            <h3>Lanzamiento: {game.released}</h3>
+            <p>Descripcion: {game.description}</p>
+            <p>Plataformas: {game.platforms}</p>
             <p>Rating: {game.rating}</p>
             <img src={game.image} alt={game.name}/>
             <div>

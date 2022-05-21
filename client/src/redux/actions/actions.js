@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CREATE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDENA, ORDENR } from '../../constantes/constantes';
+import { CREATE, FILTRADO_POR_GENERO, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDENA, ORDENR } from '../../constantes/constantes';
 
 export function getAllGames(){
     return async function(dispatch){
@@ -73,3 +73,11 @@ export function creado(order){
         payload: order
     }
 }
+
+export function filtradoPorGenero(genero) {
+    console.log(genero)
+    return {
+      type: FILTRADO_POR_GENERO,
+      payload:genero,
+    };
+  }

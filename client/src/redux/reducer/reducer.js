@@ -1,4 +1,4 @@
-import { ALL, ASCENDENTE, CREADO, CREATE, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDENA, ORDENR } from "../../constantes/constantes.js";
+import { ALL, ASCENDENTE, CREADO, CREATE, FILTRADO_POR_GENERO, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDENA, ORDENR } from "../../constantes/constantes.js";
 
 const initialState = {
     games: [],
@@ -76,6 +76,18 @@ export default function reducer(state = initialState, action){
                 ...state,
                 games: action.payload=== ALL ? state.allGames : filtroCreado
             }
+        case FILTRADO_POR_GENERO:
+            console.log(action.payload)
+            const videoJuegos = state.allGames;
+            const generosFiltrados =
+                action.payload === ALL
+                ? videoJuegos
+                : videoJuegos.filter((e) => e.genres.includes(action.payload));
+            console.log(generosFiltrados)
+            return {
+                ...state,
+                games: generosFiltrados,
+            };
         default:
             return state
     }

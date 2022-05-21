@@ -14,7 +14,6 @@ export default function Games(){
   const ITEMS_PER_PAGE=15;
   let games = useSelector(state=> state.games) 
   const [actual, setActual] =useState(ITEMS_PER_PAGE)
-  console.log(games)
   
   const [items, setItems]= useState([])
   function corteJuegos(){
@@ -53,8 +52,6 @@ export default function Games(){
       setCurrent(nextPage)
     // }
   }
-
-  console.log(current)
 
   const handlerPrevious = ()=>{
     // if(actual>0){

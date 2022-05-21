@@ -4,7 +4,6 @@ import TarjetaSimple from "../tarjeta/TarjetaSimple";
 export default function Pagination(props){
 
     const games= props.items
-    console.log(games)
     return(
         <nav>
             <ul>
