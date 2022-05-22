@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { getAllGames, getGeneros } from "../../redux/actions/actions.js";
+import { getAllGames, getGeneros, cargando } from "../../redux/actions/actions.js";
 import Nav from "../nav/Nav.jsx";
 import Pagination from "../paginacion/Pagination.jsx";
+import charge from "../../imagenes/cargando.gif"
 
 export default function Games() {
   let dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllGames());
+    dispatch(cargando(true))
     dispatch(getGeneros());
+    dispatch(getAllGames());
   }, [dispatch]);
   const ITEMS_PER_PAGE = 15;
   let games = useSelector((state) => state.games);
+  const loading = useSelector((state) => state.loader);
 
   const [items, setItems] = useState([]);
   
@@ -47,6 +50,14 @@ export default function Games() {
     setItems(games.slice(firstIndex, lastIndex)); //0-15  15-30
     setCurrent(prePage);
   };
+
+  if(loading){
+    return(
+      <div>
+        <img src={charge} alt="Cargando.... Por favor espere...." />
+      </div>
+    )
+  }
 
   return (
     <div>

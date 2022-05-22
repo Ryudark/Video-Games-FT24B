@@ -1,4 +1,4 @@
-import { ALL, ASCENDENTE, CREADO, CREATE, FILTRADO_POR_GENERO, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, ORDENA, ORDENR } from "../../constantes/constantes.js";
+import { ALL, ASCENDENTE, CREADO, CREATE, FILTRADO_POR_GENERO, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GET_SEARCH_GAME, LIMPIARDETALLE, LOADER, ORDENA, ORDENR } from "../../constantes/constantes.js";
 
 const initialState = {
     games: [],
@@ -6,7 +6,8 @@ const initialState = {
     allGames: [],
     generos:[],
     generoDetail:[],
-    platforms: []
+    platforms: [],
+    loader: false
 }
 
 export default function reducer(state = initialState, action){
@@ -19,18 +20,21 @@ export default function reducer(state = initialState, action){
             return {
                 ...state,
                 games: action.payload,
-                allGames: action.payload
+                allGames: action.payload,
+                loader: false,
             }
         case GET_SEARCH_GAME:
             return{
                 ...state,
                 games: action.payload,
-                allGames: action.payload
+                allGames: action.payload,
+                loader: false,
             }
         case GET_DETAIL_GAME:
             return{
                 ...state,
-                gameDetail: action.payload
+                gameDetail: action.payload,
+                loader: false,
             }
         case GET_GENEROS:
             return{
@@ -85,6 +89,16 @@ export default function reducer(state = initialState, action){
             return {
                 ...state,
                 games: generosFiltrados,
+            };
+        case LIMPIARDETALLE:
+            return{
+                ...state,
+                gameDetail:{}
+            }
+        case LOADER:
+            return {
+                ...state,
+                loader: action.payload,
             };
         default:
             return state

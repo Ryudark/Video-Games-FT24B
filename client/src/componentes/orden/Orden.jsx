@@ -23,13 +23,14 @@ export default function Orden(){
 
     return(
         <div>
+            <p>GENEROS</p>
             <select defaultValue="Genres"
                 onChange={(e) => onSelectChangeG(e)}
                 >
-                <option disabled>
+                {/* <option disabled>
                     Generos
-                </option>
-                <option value="All">
+                </option> */}
+                <option value={ALL}>
                     All
                 </option>
                 {genero.map((g) => (

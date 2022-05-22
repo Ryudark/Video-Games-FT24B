@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { searchGame } from "../../redux/actions/actions.js";
+import { cargando, searchGame } from "../../redux/actions/actions.js";
 import { useDispatch } from "react-redux";
 
 export default function SearchGame(){
@@ -9,6 +9,8 @@ export default function SearchGame(){
     function onSubmit(e){
         e.preventDefault();
         dispatch(searchGame(search))
+        setSearch('')
+        dispatch(cargando(true))
     }
 
     function onInputChange(e){
