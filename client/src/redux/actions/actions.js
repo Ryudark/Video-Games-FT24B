@@ -17,7 +17,6 @@ export function searchGame(name){
     return function(dispatch){
         axios.get(`http://localhost:3001/videogames?name=${name}`)
         .then(games=>{
-            console.log(games)
             dispatch({
                 type:GET_SEARCH_GAME,
                 payload: games.data

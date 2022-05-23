@@ -132,7 +132,6 @@ export default function CreateGame(){
             <div className="scroll">
             {
                 generos.map((genero, index)=> {
-                    // console.log(genero)
                     return (<div key={index}>
                                 <input type="checkbox" name="genres" onChange={()=>checkOnChange(index)}
                                  value={genero}
@@ -147,7 +146,6 @@ export default function CreateGame(){
             <label>Plataformas</label>
             {
                 plataformas.map((platf, index)=> {
-                    // console.log(genero)
                     return (<div key={index}>
                                 <input type="checkbox" name="platforms" onChange={()=>checkOnChangePlat(index)}
                                  value={platf}
