@@ -5,6 +5,8 @@ import { getAllGames, getGeneros, cargando } from "../../redux/actions/actions.j
 import Nav from "../nav/Nav.jsx";
 import Pagination from "../paginacion/Pagination.jsx";
 import charge from "../../imagenes/cargando.gif"
+import noEncontrado from "../../imagenes/error-404.jpg"
+import "./Games.css"
 
 export default function Games() {
   let dispatch = useDispatch();
@@ -53,20 +55,26 @@ export default function Games() {
 
   if(loading){
     return(
-      <div>
-        <img src={charge} alt="Cargando.... Por favor espere...." />
+      <div className="load">
+        <img src={charge} className="loading" alt="Cargando.... Por favor espere...." />
       </div>
     )
   }
 
   return (
-    <div>
+    <div className="fondoLoading">
       <Nav />
-      <Pagination
+      {items? <Pagination
         items={items}
         handlerNext={handlerNext}
         handlerPrevious={handlerPrevious}
       />
+      :(
+        <div>
+          <h1 className="error">INVALID NAME </h1>
+          <img src={noEncontrado} alt="not found" />
+        </div>
+      )}
     </div>
   );
 }

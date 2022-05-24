@@ -6,16 +6,20 @@ import "./Nav.css"
 
 export default function Nav () {
     return (
-        <div className="navegacion">
-            <Link className='centrar' to='/home'>
-                Home
-            </Link>
-            <Link className='centrar' to='/games/create'>
-                Agregar Juego
-            </Link>
-            <h3 className='centrar'> HENRY VIDEOGAMES </h3>
-            <Orden />
-            <SearchGame />
+        <div className='organizar'>
+            <div className="barra1">
+                <Link className='centrar' to='/home'>
+                    Home
+                </Link>
+                <Link className='centrar' to='/games/create'>
+                    Agregar Juego
+                </Link>
+                <h3 className='titulo'> HENRY VIDEOGAMES </h3>
+                <SearchGame />
+            </div>
+            <div className='barra2'>
+                <Orden />
+            </div>
         </div>
     )
 }

@@ -3,10 +3,11 @@
     height: 300px;
     border: 2px solid black;
     display: inline-block;
-    background-color: rgba(8, 8, 0, 0.733);
+    background-color: rgba(156, 156, 115, 0.856);
     border-radius: 18px;
     box-shadow: 10px 10px 5px 5px rgba(26, 19, 19, 0.418);
     overflow: hidden;
+    text-decoration: none;
 }
 
 .card:hover {
@@ -17,9 +18,22 @@
     height: 150px;
     width: 230px;
 }
-
-.generos{
-    display: inline-block;
+.genres {
+    /* display: inline-block;
+    color: hsla(91, 68%, 41%, 0.555);
+    font-size: 1.3rem;
+    line-height: 2.1rem;
+    font-weight: bold;
+    min-width: 10px;
+    margin-bottom: 5px; */
     align-items: center;
-    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    text-decoration: none;
+}
+.vinculo{
+    text-decoration: none;
+    color: black;
+}
+.vinculo:visited{
+    text-decoration: none;
+    color: rgb(8, 91, 105);
 }

@@ -1,8 +1,30 @@
-.navegacion{
-    width: 150px;
-    display:grid;
-    grid-template-rows:repeat (5, 1fr);
+.organizar{
+    display: inline;
+    height: 200px;
 }
-.centrar{
-    grid-row: 1;
+
+.barra1 {
+    display: flex;
+    top: auto;
+    justify-content: space-between;
+    background-color: rgba(3, 45, 80, 0.87);
+    background-attachment: fixed;
+    height: 75px;
 }
+
+.barra2 {
+    display: flex;
+    top: auto;
+    justify-content: center;
+    background-color: rgba(3, 45, 80, 0.87);
+    background-attachment: fixed;
+    height: 75px;
+}
+
+.titulo {
+    text-align: center;
+    font-size: 2rem;
+    color: #126669;
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+}
+

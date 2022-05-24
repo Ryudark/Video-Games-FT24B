@@ -26,7 +26,7 @@ export default function Orden(){
         <div className="navegacion">
             <div className="centrar">
                 <p >GENEROS</p>
-                <select defaultValue="Genres"
+                <select name="select"
                     onChange={(e) => onSelectChangeG(e)}
                     >
                     {/* <option disabled>

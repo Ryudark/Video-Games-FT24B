@@ -81,6 +81,9 @@ export default function CreateGame(){
         else if (game.description.trim() === "") {
             return alert("Descripción requerida");
         } 
+        else if (game.image.trim() === "") {
+            return alert("Se requiere Link de imagen");
+        }
         else if (game.released.trim() === "") {
             return alert("Fecha de lanzamiento requerida");
         } 
@@ -115,50 +118,66 @@ export default function CreateGame(){
             document.getElementById("formulario").reset();
             window.location.reload();
         }
-    }
-
+    } 
     return (
-        <div>
-        <form id="formulario" onSubmit={onSubmit}>
-            <label>Nombre</label>
-            <input onChange={onInputChange} name="name" type="text" value={game.name}/>
-            <label>Descripción</label>
-            <input onChange={onInputChange} name="description" type="text" value={game.description}/>
-            <label>Imagen</label>
-            <input onChange={onInputChange} name="image" type="text" value={game.image}/>
-            <label>Fecha de Lanzamiento</label>
-            <input onChange={onInputChange} name="released" type="date" value={game.released}/>
-            <label>Generos</label>
-            <div className="scroll">
-            {
-                generos.map((genero, index)=> {
-                    return (<div key={index}>
-                                <input type="checkbox" name="genres" onChange={()=>checkOnChange(index)}
-                                 value={genero}
-                                />
-                                <label >{genero}</label>
-                            </div>)
-                }) /////
-            }
-            </div>
-            <label>Rating</label>
-            <input onChange={onInputChange} name="rating" type="text" value={game.rating}/>
-            <label>Plataformas</label>
-            {
-                plataformas.map((platf, index)=> {
-                    return (<div key={index}>
-                                <input type="checkbox" name="platforms" onChange={()=>checkOnChangePlat(index)}
-                                 value={platf}
-                                />
-                                <label >{platf}</label>
-                            </div>)
-                }) 
-            }
-            <input type="submit" />
-        </form>
-        <Link to="/home">
-            <button>HOME</button>
-        </Link>
+        <div className="fondoLoading">
+            <h1 className="tituloVideogame">CREA TU VIDEOJUEGO</h1>
+            <form id="formulario" onSubmit={onSubmit}>
+                <div className="item">
+                    <label className="label">Nombre</label>
+                    <input onChange={onInputChange} name="name" type="text" value={game.name}/>
+                </div>
+                <div className="item">
+                    <label className="label">Descripción</label>
+                    <textarea onChange={onInputChange} name="description" value={game.description}/>
+                </div>
+                <div className="item">
+                    <label className="label">Imagen</label>
+                    <input onChange={onInputChange} name="image" type="text" value={game.image}/>
+                </div>
+                <div className="item">
+                    <label>Fecha de Lanzamiento</label>
+                    <input onChange={onInputChange} name="released" type="date" value={game.released}/>
+                </div>
+                <div className="item">
+                    <label className="label">Rating</label>
+                    <input onChange={onInputChange} name="rating" type="text" value={game.rating}/>
+                </div>
+                <div className="item">
+                    <label className="label">Generos</label>
+                    <div className="scroll">
+                    {
+                        generos.map((genero, index)=> {
+                            return (<div key={index}>
+                                        <input type="checkbox" name="genres" onChange={()=>checkOnChange(index)}
+                                        value={genero}
+                                        />
+                                        <label >{genero}</label>
+                                    </div>)
+                        })
+                    }
+                    </div>
+                </div>
+                <div className="item">
+                    <label className="label">Plataformas</label>
+                    <div className="scroll">
+                    {
+                        plataformas.map((platf, index)=> {
+                            return (<div key={index}>
+                                        <input type="checkbox" name="platforms" onChange={()=>checkOnChangePlat(index)}
+                                        value={platf}
+                                        />
+                                        <label >{platf}</label>
+                                    </div>)
+                        }) 
+                    }
+                    </div>
+                </div>
+                <input type="submit" />
+            </form>
+            <Link to="/home">
+                <button>HOME</button>
+            </Link>
     </div>
     )
 }

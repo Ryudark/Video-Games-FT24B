@@ -1,8 +1,24 @@
 .navegacion{
     width: 150px;
-    display:grid;
+    display:flex;
     grid-template-rows: repeat (5, 1fr);
 }
 .centrar{
+    top: 50px;
     grid-row: 1;
+    width: 150px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    /* margin-top: 30px;
+    border: 0;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-align: center;
+    font-size: 18px;
+    color: #fffb00;
+    background-color: black;
+    border: 3px solid white;
+    border-radius: 0px;
+    cursor: pointer; */
 }
