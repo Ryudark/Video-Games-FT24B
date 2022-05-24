@@ -136,7 +136,7 @@ export default function CreateGame(){
                     <input onChange={onInputChange} name="image" type="text" value={game.image}/>
                 </div>
                 <div className="item">
-                    <label>Fecha de Lanzamiento</label>
+                    <label className="label">Fecha de Lanzamiento</label>
                     <input onChange={onInputChange} name="released" type="date" value={game.released}/>
                 </div>
                 <div className="item">

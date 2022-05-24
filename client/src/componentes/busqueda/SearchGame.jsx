@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { cargando, searchGame } from "../../redux/actions/actions.js";
 import { useDispatch } from "react-redux";
+import "./SearchGame.css"
 
 export default function SearchGame(){
     const [search, setSearch] = useState('');
@@ -8,9 +9,13 @@ export default function SearchGame(){
 
     function onSubmit(e){
         e.preventDefault();
-        dispatch(searchGame(search))
-        setSearch('')
-        dispatch(cargando(true))
+        if(!search.trim()){
+            return alert("Ingrese una busqueda")
+        }else{
+            dispatch(searchGame(search))
+            setSearch('')
+            dispatch(cargando(true))
+        }
     }
 
     function onInputChange(e){
@@ -19,11 +24,13 @@ export default function SearchGame(){
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmit}>
-                <input type="text" onChange={onInputChange} value={search}/>
+        <div className="cuadrar">
+            {/* <form onSubmit={onSubmit}>
+                <input type="text" onChange={onInputChange} value={search} placeholder="Busqueda.........."/>
                 <input type="submit" value="Buscar"/>
-            </form>
+            </form> */}
+            <input type="text" onChange={onInputChange} value={search} placeholder="Busqueda.........."/>
+            <button type="submit" onClick={onSubmit}>Buscar</button>
         </div>
     )
 }

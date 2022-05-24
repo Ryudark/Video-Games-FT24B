@@ -23,7 +23,7 @@ export default function Orden(){
     }
 
     return(
-        <div className="navegacion">
+        <div className="orden">
             <div className="centrar">
                 <p >GENEROS</p>
                 <select name="select"

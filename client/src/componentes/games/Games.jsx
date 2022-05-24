@@ -62,7 +62,7 @@ export default function Games() {
   }
 
   return (
-    <div className="fondoLoading">
+    <div className="fondo">
       <Nav />
       {items? <Pagination
         items={items}

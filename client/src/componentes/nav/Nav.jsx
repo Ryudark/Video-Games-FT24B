@@ -8,10 +8,10 @@ export default function Nav () {
     return (
         <div className='organizar'>
             <div className="barra1">
-                <Link className='centrar' to='/home'>
+                <Link className='botonHome' to='/home'>
                     Home
                 </Link>
-                <Link className='centrar' to='/games/create'>
+                <Link className='botonCreate' to='/games/create'>
                     Agregar Juego
                 </Link>
                 <h3 className='titulo'> HENRY VIDEOGAMES </h3>

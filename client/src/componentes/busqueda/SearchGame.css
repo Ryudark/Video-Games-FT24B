@@ -1,0 +1,9 @@
+.cuadrar{
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
