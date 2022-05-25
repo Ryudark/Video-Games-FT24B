@@ -3,7 +3,48 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: flex-end;
     align-content: center;
     align-items: center;
+}
+
+.inputS{
+    border: 1px, solid silver;
+    width: 15px;
+    border-radius: 30px;
+    height: 15px;
+    font-size: 12px;
+    transition: all 0.6s ease;
+}
+.inputS:hover {
+    width: 240px;
+}
+.inputS:focus{
+    width: 240px;
+}
+
+.botonBusqueda {
+    width: 80px;
+    border-radius: 30px;
+    height: 25px;
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Staatliches", sans-serif;
+    color: #c4930cdc;
+    background-color: black;
+    border: 3px solid white;
+    cursor: pointer;
+    transition: all ease 200ms;
+    text-decoration: none;
+}
+
+.botonBusqueda:hover {
+    background-color: white;
+    color: black;
+    transition: 0.5s;
+}
+
+.botonBusqueda:active {
+    transform: translateY(10%);
 }

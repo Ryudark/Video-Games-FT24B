@@ -29,8 +29,8 @@ export default function SearchGame(){
                 <input type="text" onChange={onInputChange} value={search} placeholder="Busqueda.........."/>
                 <input type="submit" value="Buscar"/>
             </form> */}
-            <input type="text" onChange={onInputChange} value={search} placeholder="Busqueda.........."/>
-            <button type="submit" onClick={onSubmit}>Buscar</button>
+            <input className="inputS" type="text" onChange={onInputChange} value={search} placeholder="Busqueda.........."/>
+            <button className="botonBusqueda" type="submit" onClick={onSubmit}>Buscar</button>
         </div>
     )
 }

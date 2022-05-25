@@ -1,42 +1,11 @@
-.organizar{
-    display: flex;
-    flex-direction: column;
-    height: 150px;
-    background-color: rgba(3, 45, 80, 0.87);
-}
-
-.barra1 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-content: space-around;
-    align-items: space-around;
-    height: 55px;
-}
-
-.barra2 {
-    display: flex;
-    width: 100%;
-}
-
-.titulo {
-    width: 50%;
-    height: 50px;
-    margin-top: 5px;
-    text-align: center;
-    font-size: x-large;
-    color: #126669;
-    text-shadow: 2px 2px 5px rgb(0, 0, 0);
-}
-
-.botonCreate {
+.botonPrevio {
     width: 10%;
     height: 25px;
     margin-top: 5px;
     font-size: 15px;
     font-weight: bold;
     font-family: "Staatliches", sans-serif;
-    color: #389b0adc;
+    color: #800107dc;
     background-color: black;
     border: 3px solid white;
     border-radius: 10px;
@@ -45,24 +14,24 @@
     text-decoration: none;
 }
 
-.botonCreate:hover {
+.botonPrevio:hover {
     background-color: white;
-    color: black;
+    color: rgba(145, 3, 69, 0.781);
     transition: 0.5s;
 }
 
-.botonCreate:active {
+.botonPrevio:active {
     transform: translateY(10%);
 }
 
-.botonHome {
+.botonSiguiente {
     width: 10%;
     height: 25px;
     margin-top: 5px;
     font-size: 15px;
     font-weight: bold;
     font-family: "Staatliches", sans-serif;
-    color: #c4930cdc;
+    color: #052b94c9;
     background-color: black;
     border: 3px solid white;
     border-radius: 10px;
@@ -71,12 +40,12 @@
     text-decoration: none;
 }
 
-.botonHome:hover {
+.botonSiguiente:hover {
     background-color: white;
-    color: black;
+    color: rgba(6, 19, 134, 0.829);
     transition: 0.5s;
 }
 
-.botonHome:active {
+.botonSiguiente:active {
     transform: translateY(10%);
 }

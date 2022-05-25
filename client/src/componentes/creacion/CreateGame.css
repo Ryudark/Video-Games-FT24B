@@ -41,3 +41,55 @@
     font-size: 1.3em;
     text-shadow: 2px 2px 5px rgb(0, 0, 0);
 }
+
+.botonSubir {
+    width: 120px;
+    height: 25px;
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Staatliches", sans-serif;
+    color: #084f8ac2;
+    background-color: black;
+    border: 3px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all ease 200ms;
+    text-decoration: none;
+}
+
+.botonSubir:hover {
+    background-color: white;
+    color: black;
+    transition: 0.5s;
+}
+
+.botonSubir:active {
+    transform: translateY(10%);
+}
+
+.botonHomeCreate {
+    width: 120px;
+    height: 25px;
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Staatliches", sans-serif;
+    color: #c4930cdc;
+    background-color: black;
+    border: 3px solid white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all ease 200ms;
+    text-decoration: none;
+}
+
+.botonHomeCreate:hover {
+    background-color: white;
+    color: black;
+    transition: 0.5s;
+}
+
+.botonHomeCreate:active {
+    transform: translateY(10%);
+}

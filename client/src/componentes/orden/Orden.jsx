@@ -24,14 +24,11 @@ export default function Orden(){
 
     return(
         <div className="orden">
-            <div className="centrar">
-                <p >GENEROS</p>
-                <select name="select"
+            <div>
+                <h4 className="tituloOrden">GENEROS</h4>
+                <select className="caja" name="select"
                     onChange={(e) => onSelectChangeG(e)}
                     >
-                    {/* <option disabled>
-                        Generos
-                    </option> */}
                     <option value={ALL}>
                         All
                     </option>
@@ -42,25 +39,25 @@ export default function Orden(){
                     ))}
                 </select>
             </div>
-            <div className="centrar">
-                <p >ALFABETICO</p>
-                <select name="select" onChange={onSelectChangeA}>
+            <div>
+                <h4 className="tituloOrden">ALFABETICO</h4>
+                <select className="caja" name="select" onChange={onSelectChangeA}>
                     <option>---ALFABETICO---</option>
                     <option value={ASCENDENTE}>ASCENDENTE</option>
                     <option value={DESCENDENTE}>DESCENDENTE</option>
                 </select>
             </div>
-            <div className="centrar">
-                <p>RATING</p>
-                <select name="select" onChange={onSelectChangeR}>
+            <div>
+                <h4 className="tituloOrden">RATING</h4>
+                <select className="caja" name="select" onChange={onSelectChangeR}>
                     <option>---RATING---</option>
                     <option value={ASCENDENTE}>ASCENDENTE</option>
                     <option value={DESCENDENTE}>DESCENDENTE</option>
                 </select>
             </div>
-            <div className="centrar">
-                <p>CREADO</p>
-                <select className="centrar" name="select" onChange={onSelectChangeCreate}>
+            <div> {/*className="orden1"*/}
+                <h4 className="tituloOrden">CREADO</h4>
+                <select  className="caja" name="select" onChange={onSelectChangeCreate}>
                     <option value={ALL}>---ALL---</option>
                     <option value={CREADO}>CREADO</option>
                     <option value={NOCREADO}>NOCREADO</option>

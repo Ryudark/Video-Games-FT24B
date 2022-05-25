@@ -173,10 +173,10 @@ export default function CreateGame(){
                     }
                     </div>
                 </div>
-                <input type="submit" />
+                <input className="botonSubir" type="submit" />
             </form>
             <Link to="/home">
-                <button>HOME</button>
+                <button className="botonHomeCreate">HOME</button>
             </Link>
     </div>
     )
