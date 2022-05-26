@@ -61,6 +61,16 @@ export default function CreateGame(){
         setGame({...game, platforms:parcial})
     }
 
+    function inputNombre(e){
+        e.preventDefault()
+        let nombre= e.target.value
+        let cambio= nombre[0].toUpperCase()+nombre.slice(1)
+        setGame({
+            ...game,
+            name: cambio
+        })
+    }
+
     function onInputChange(e){
         e.preventDefault()
         setGame({   
@@ -125,7 +135,7 @@ export default function CreateGame(){
             <form id="formulario" onSubmit={onSubmit}>
                 <div className="item">
                     <label className="label">Nombre</label>
-                    <input onChange={onInputChange} name="name" type="text" value={game.name}/>
+                    <input onChange={inputNombre} name="name" type="text" />
                 </div>
                 <div className="item">
                     <label className="label">Descripción</label>
