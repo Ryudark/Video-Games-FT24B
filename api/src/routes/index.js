@@ -176,7 +176,7 @@ router.get('/videogames', async (req, res)=>{
         if(name){
             const busqueda= await juegos(name)
             const resultado = busqueda.filter(item=>item.name.toLowerCase().includes(name.toLowerCase()))
-            totalJuegos.length? res.status(200).json(resultado): res.status(404).send("No existe el Videojuego!!")
+            resultado.length? res.status(200).json(resultado): res.status(404).json("No existe el Videojuego!!")
             // const resultado= totalJuegos.filter(item=>item.name.toLowerCase().includes(name.toLowerCase()))
             // totalJuegos.length? res.status(200).json(resultado): res.status(404).send("No existe el Videojuego!!")
         }
@@ -185,7 +185,7 @@ router.get('/videogames', async (req, res)=>{
         }
     }
     catch(e){
-        res.json(e)
+        console.log(e)
     }
 })
 

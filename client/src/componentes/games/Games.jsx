@@ -64,14 +64,14 @@ export default function Games() {
   return (
     <div className="fondo">
       <Nav />
-      {items? <Pagination
+      {items.length>0? <Pagination
         items={items}
         handlerNext={handlerNext}
         handlerPrevious={handlerPrevious}
       />
       :(
         <div>
-          <h1 className="error">INVALID NAME </h1>
+          <h1 className="error">Juego No Encontrado </h1>
           <img src={noEncontrado} alt="not found" />
         </div>
       )}

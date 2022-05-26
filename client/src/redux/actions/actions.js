@@ -3,49 +3,66 @@ import { CREATE, FILTRADO_POR_GENERO, GET_DETAIL_GAME, GET_GAME, GET_GENEROS, GE
 
 export function getAllGames(){
     return async function(dispatch){
-        await axios.get('http://localhost:3001/videogames')
-        .then(games=>{
-            dispatch({
+        try{
+            let completo= await axios.get('http://localhost:3001/videogames')
+            return dispatch({
                 type: GET_GAME,
-                payload: games.data
+                payload: completo.data
             })
-        })
+
+        }
+        catch(e){
+            console.log(e)
+        }
+        
     }
 }
 
 export function searchGame(name){
-    return function(dispatch){
-        axios.get(`http://localhost:3001/videogames?name=${name}`)
-        .then(games=>{
-            dispatch({
-                type:GET_SEARCH_GAME,
-                payload: games.data
+    return async function(dispatch){
+        try {
+            let search= await axios.get(`http://localhost:3001/videogames?name=${name}`)
+            return dispatch({
+                type: GET_SEARCH_GAME,
+                payload: search.data
             })
-        })
+        } catch (e) {
+            return dispatch({
+                type: GET_SEARCH_GAME,
+                payload: []
+            })
+        }
     }
 }
 
 export function getDetailGame(id){
-    return function(dispatch){
-        axios.get(`http://localhost:3001/videogames/${id}`)
-        .then(game=>{
-            dispatch({
+    return async function(dispatch){
+        try{
+            let detail= await axios.get(`http://localhost:3001/videogames/${id}`)
+            return dispatch({
                 type: GET_DETAIL_GAME,
-                payload: game.data
+                payload: detail.data
             })
-        })
+        }
+        catch(e){
+            console.log(e)
+        }    
     }
 }
 
 export function getGeneros(){
     return async function(dispatch){
-        await axios.get(`http://localhost:3001/genres`)
-        .then(genero=>{
-            dispatch({
+        try{
+            let generos= await axios.get(`http://localhost:3001/genres`)
+            return dispatch({
                 type: GET_GENEROS,
-                payload: genero.data
+                payload: generos.data
             })
-        })
+        }
+        catch(e){
+            console.log(e)
+        }
+
     }
 }
 export function postGame(game){
